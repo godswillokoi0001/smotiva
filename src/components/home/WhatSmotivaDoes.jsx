@@ -4,27 +4,32 @@ import { motion } from 'framer-motion';
 const servicesData = [
   {
     title: 'Brand Identity Systems',
-    description: 'Comprehensive visual frameworks that go beyond logos to create consistent, recognizable brand experiences across all touchpoints.',
+    problem: 'Inconsistent logos, colors, and brand elements across platforms',
+    outcome: 'A comprehensive visual framework that ensures brand recognition everywhere',
     focus: 'Structure over style'
   },
   {
-    title: 'Digital Presence Design',
-    description: 'Strategic design systems that ensure your online platforms work together to communicate your value proposition clearly.',
+    title: 'Digital Presence Systems',
+    problem: 'Social media, ads, and online platforms that don\'t align with your brand',
+    outcome: 'Cohesive digital experiences that reinforce your brand message consistently',
     focus: 'Cohesion over aesthetics'
   },
   {
     title: 'Website Communication Systems',
-    description: 'Website architectures that guide visitors through your story, services, and value in a logical, conversion-focused flow.',
+    problem: 'Websites that look good but fail to clearly communicate value and drive action',
+    outcome: 'Strategic website architectures that guide visitors through your value proposition',
     focus: 'Clarity over complexity'
   },
   {
     title: 'Content & Messaging Structure',
-    description: 'Organized content frameworks that align your messaging with your audience\'s needs and your business objectives.',
+    problem: 'Unclear messaging that doesn\'t resonate with your target audience',
+    outcome: 'Organized content frameworks that align messaging with business objectives',
     focus: 'Strategy over volume'
   },
   {
-    title: 'Growth Advisory for Brands',
-    description: 'Strategic guidance on how to leverage your digital systems for sustainable business growth and market positioning.',
+    title: 'Growth Advisory Systems',
+    problem: 'Brand efforts that don\'t translate into measurable business growth',
+    outcome: 'Strategic guidance that leverages brand systems for sustainable growth',
     focus: 'Systems over tactics'
   }
 ];
@@ -79,14 +84,27 @@ export default function WhatSmotivaDoes() {
             <motion.div
               key={index}
               variants={item}
-              className="bg-white p-8 rounded-lg border border-neutral-gray/20 hover:shadow-lg transition-shadow duration-300"
+              className="bg-white p-10 rounded-lg border border-neutral-gray/20 hover:shadow-lg transition-shadow duration-300"
             >
-              <h3 className="text-xl font-heading font-semibold text-neutral-dark mb-3">
+              <h3 className="text-2xl font-heading font-bold text-neutral-dark mb-4">
                 {service.title}
               </h3>
-              <p className="text-neutral-gray leading-relaxed mb-4">
-                {service.description}
-              </p>
+              <div className="mb-4">
+                <p className="text-sm font-heading font-semibold text-neutral-gray uppercase tracking-wide mb-2">
+                  Problem Solved
+                </p>
+                <p className="text-neutral-gray leading-relaxed mb-4">
+                  {service.problem}
+                </p>
+              </div>
+              <div className="mb-4">
+                <p className="text-sm font-heading font-semibold text-accent-teal uppercase tracking-wide mb-2">
+                  Outcome Created
+                </p>
+                <p className="text-neutral-dark leading-relaxed">
+                  {service.outcome}
+                </p>
+              </div>
               <p className="text-sm font-heading font-medium text-accent-teal uppercase tracking-wide">
                 {service.focus}
               </p>

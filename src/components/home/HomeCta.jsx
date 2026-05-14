@@ -1,69 +1,70 @@
 // src/components/home/HomeCta.jsx
 import React from 'react';
 import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
 
 export default function HomeCta({ onNavigate }) {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
-
   const handleNavigation = (page) => {
     if (onNavigate) {
       onNavigate(page);
     }
   };
-  
-  // Framer Motion Variants for the content block
-  const ctaVariants = {
-    hidden: { opacity: 0, scale: 0.95 },
-    visible: { 
-      opacity: 1, 
-      scale: 1, 
-      transition: { 
-        duration: 0.8, 
-        ease: [0.17, 0.55, 0.55, 1] 
-      } 
+
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+      },
+    },
+  };
+
+  const item = {
+    hidden: { opacity: 0, y: 20 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8
+      }
     },
   };
 
   return (
-    // Section uses a rich, dark background (Primary Dark) for impact
-    <section className="bg-primary-dark py-24 sm:py-32">
+    <section className="bg-neutral-dark py-24 sm:py-32">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        
         <motion.div
-          ref={ref}
-          variants={ctaVariants}
+          className="space-y-8"
+          variants={container}
           initial="hidden"
-          animate={inView ? "visible" : "hidden"}
+          whileInView="show"
+          viewport={{ once: true }}
         >
-          {/* Main Title */}
-          <h2 className="text-4xl sm:text-5xl font-heading font-extrabold text-white mb-4 leading-tight">
-            Let's create something exceptional together
-          </h2>
-          
-          {/* Supporting Text */}
-          <p className="text-neutral-light/90 font-body text-lg mb-10 max-w-2xl mx-auto">
-            Whether you’re launching a brand, designing visuals, or building a digital experience, we’ll bring your vision to life with creativity and purpose.
-          </p>
-          
-          {/* CTA Buttons */}
-          <div className="flex justify-center space-x-4">
+          <motion.h2
+            variants={item}
+            className="text-5xl sm:text-6xl font-heading font-bold text-white mb-6 leading-tight"
+          >
+            Fix Your Brand Structure
+          </motion.h2>
+
+          <motion.p
+            variants={item}
+            className="text-neutral-light font-body text-xl mb-10 max-w-2xl mx-auto"
+          >
+            Ready to transform inconsistent digital efforts into a cohesive brand system? Start with a strategic audit.
+          </motion.p>
+
+          <motion.div
+            variants={item}
+            className="flex justify-center"
+          >
             <button
               onClick={() => handleNavigation('contact')}
-              className="bg-accent-teal hover:bg-opacity-80 text-secondary-dark font-heading font-bold py-3 px-8 rounded-full transition duration-300 shadow-2xl text-lg transform hover:-translate-y-0.5 border-2 border-accent-teal"
+              className="bg-accent-teal hover:bg-opacity-90 text-white font-heading font-semibold py-4 px-8 rounded-lg transition duration-300 text-lg"
             >
-              Book a Consultation
+              Start a Brand Audit
             </button>
-            <button
-              onClick={() => handleNavigation('projects')}
-              className="border-2 border-accent-light text-white font-heading font-semibold py-3 px-8 rounded-full transition duration-300 text-lg hover:bg-accent-light hover:text-secondary-dark"
-            >
-              Start a Project
-            </button>
-          </div>
+          </motion.div>
         </motion.div>
       </div>
     </section>
