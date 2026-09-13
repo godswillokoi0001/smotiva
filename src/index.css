@@ -1,154 +1,280 @@
+@import url('https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* @import "tailwindcss"; */
+/* ==========================================================================
+   SMOTIVA BRAND TYPOGRAPHY SYSTEM
+   Headings/Display: Lufga
+   Body/Interface: General Sans
+   ========================================================================== */
 
-/* Global styles go here */
-
-/* --- Custom Font Declarations --- */
-
-/* DM Sans */
+/* Lufga Font Faces */
 @font-face {
-  font-family: 'DM Sans';
-  font-weight: 400; /* Regular */
-  src: url('/src/assets/fonts/DMSans-Regular-BF64376d323f095.ttf') format('truetype');
+  font-family: 'Lufga';
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url('/src/assets/fonts/Lufga-Regular.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: 'DM Sans';
-  font-weight: 700; /* Bold */
-  src: url('/src/assets/fonts/DMSans-Bold-BF64376d32191f2.ttf') format('truetype');
+  font-family: 'Lufga';
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: url('/src/assets/fonts/Lufga-Medium.ttf') format('truetype');
 }
 
-/* Gilroy */
 @font-face {
-  font-family: 'Gilroy';
-  font-weight: 700; /* Bold */
-  src: url('/src/assets/fonts/Gilroy-Bold.ttf') format('truetype');
+  font-family: 'Lufga';
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  src: url('/src/assets/fonts/Lufga-SemiBold.ttf') format('truetype');
 }
 
-@font-face {  
-  font-family: 'Gilroy';
-  font-weight: 500; /* Medium */
-  src: url('/src/assets/fonts/Gilroy-Medium.ttf') format('truetype');
+@font-face {
+  font-family: 'Lufga';
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: url('/src/assets/fonts/Lufga-Bold.ttf') format('truetype');
 }
 
-/* Explicitly define font utility classes */
-@layer components {
-  .font-heading {
-    font-family: 'Gilroy', sans-serif;
-    font-weight: 700;
-  }
-  
-  .font-body {
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 400;
-  }
+@font-face {
+  font-family: 'Lufga';
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+  src: url('/src/assets/fonts/Lufga-ExtraBold.ttf') format('truetype');
 }
 
-/* Custom color utilities */
-@layer utilities {
-  .bg-primary-dark {
-    background-color: #1E3A8A !important;
-  }
-  .bg-secondary-dark {
-    background-color: #1F2937 !important;
-  }
-  .bg-accent-teal {
-    background-color: #00C4CC !important;
-  }
-  .bg-accent-cyan {
-    background-color: #38BDF8 !important;
-  }
-  .bg-accent-light {
-    background-color: #75D0F8 !important;
-  }
-  .bg-neutral-dark {
-    background-color: #101318 !important;
-  }
-  .bg-neutral-gray {
-    background-color: #9CA3AF !important;
-  }
-  .bg-neutral-light {
-    background-color: #E5E7EB !important;
-  }
-  
-  .text-primary-dark {
-    color: #1E3A8A !important;
-  }
-  .text-secondary-dark {
-    color: #1F2937 !important;
-  }
-  .text-accent-teal {
-    color: #00C4CC !important;
-  }
-  .text-accent-cyan {
-    color: #38BDF8 !important;
-  }
-  .text-accent-light {
-    color: #75D0F8 !important;
-  }
-  .text-neutral-dark {
-    color: #101318 !important;
-  }
-  .text-neutral-gray {
-    color: #848b96 !important;
-  }
-  .text-neutral-light {
-    color: #E5E7EB !important;
-  }
-  
-  .border-accent-teal {
-    border-color: #00C4CC !important;
-  }
+/* General Sans Local Fallbacks */
+@font-face {
+  font-family: 'General Sans';
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url('/src/assets/fonts/GeneralSans-Regular.woff2') format('woff2');
 }
 
-/* Root variables for quick reference (used by custom CSS where helpful) */
+@font-face {
+  font-family: 'General Sans';
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: url('/src/assets/fonts/GeneralSans-Medium.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'General Sans';
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  src: url('/src/assets/fonts/GeneralSans-Semibold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'General Sans';
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: url('/src/assets/fonts/GeneralSans-Bold.woff2') format('woff2');
+}
+
+/* ==========================================================================
+   ROOT COLOR TOKENS & SYSTEM VARIABLES (STRICT BRAND PALETTE)
+   ========================================================================== */
 :root {
-  --color-primary-dark: #1E3A8A;
-  --color-secondary-dark: #1F2937;
-  --color-accent-teal: #00C4CC;
-  --color-accent-cyan: #38BDF8;
-  --color-accent-light: #75D0F8;
-  --color-neutral-dark: #101318;
-  --color-neutral-gray: #9CA3AF;
-  --color-neutral-light: #E5E7EB;
+  --color-smotiva-blue: #0057FF;
+  --color-smotiva-coral: #FF4D4D;
+  --color-smotiva-cream: #FAF8EF;
+  --color-smotiva-carbon: #121212;
+  --color-smotiva-ochre: #F2A900;
+  --color-smotiva-border: #E8E3D5;
+  --color-smotiva-surface: #FAF8EF;
 }
 
-/* Accessibility: focus-visible outlines for keyboard users */
-:focus {
-  outline: none;
+html {
+  font-family: 'General Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  scroll-behavior: smooth;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #FAF8EF;
+  color: #121212;
 }
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background-color: #FAF8EF;
+}
+
+::selection {
+  background-color: #FF4D4D;
+  color: #FFFFFF;
+}
+
+/* Typography Hierarchy */
+h1, h2, h3, h4, h5, h6, .font-heading, .font-display {
+  font-family: 'Lufga', -apple-system, sans-serif;
+  letter-spacing: -0.025em;
+}
+
+p, span, a, button, input, select, textarea, label, .font-body {
+  font-family: 'General Sans', -apple-system, sans-serif;
+}
+
+/* Accessibility Outlines */
 :focus-visible {
-  outline: 3px solid rgba(0,196,204,0.14);
-  outline-offset: 3px;
+  outline: 2px solid #0057FF;
+  outline-offset: 2px;
 }
 
-/* Smooth transition baseline */
-* {
-  transition: background-color 220ms ease, color 220ms ease, transform 200ms ease;
+/* Subtle architectural grid pattern */
+.bg-grid-subtle {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(18, 18, 18, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(18, 18, 18, 0.04) 1px, transparent 1px);
 }
 
-/* Keyframes + animation utilities used across components */
-@keyframes fade-in-down {
-  from { opacity: 0; transform: translateY(-8px); }
-  to { opacity: 1; transform: translateY(0); }
+.bg-grid-dark {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
 }
 
-@keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@layer utilities {
-  .animate-fade-in-down {
-    animation: fade-in-down 600ms ease both;
-  }
-  .animate-fade-in {
-    animation: fade-in 700ms ease both;
-  }
-  .shadow-soft {
-    box-shadow: 0 8px 24px rgba(2,6,23,0.55);
+/* Reduced motion considerations */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
+
+/* ==========================================================================
+   SMOTIVA DARK MODE ARCHITECTURAL SYSTEM
+   Rooted in Deep Carbon (#121212) with High-Contrast Typography & Accents
+   ========================================================================== */
+
+html.dark {
+  background-color: #121212;
+  color: #F5F5F5;
+  color-scheme: dark;
+}
+
+html.dark body {
+  background-color: #121212;
+  color: #F5F5F5;
+}
+
+/* Canvas & Page Section Backgrounds */
+html.dark .bg-\[\#FAF8EF\] {
+  background-color: #121212 !important;
+}
+
+/* Primary Card & Surface Containers */
+html.dark .bg-white {
+  background-color: #1A1A1A !important;
+}
+
+/* Nested Surfaces Inside Cards */
+html.dark .bg-white .bg-\[\#FAF8EF\],
+html.dark .bg-\[\#1A1A1A\] .bg-\[\#FAF8EF\],
+html.dark .rounded-3xl .bg-\[\#FAF8EF\],
+html.dark .rounded-2xl .bg-\[\#FAF8EF\] {
+  background-color: #222222 !important;
+}
+
+/* Border System */
+html.dark .border-\[\#E8E3D5\],
+html.dark .border-neutral-200,
+html.dark .border-neutral-100 {
+  border-color: #2A2A2A !important;
+}
+
+/* High-Contrast Typography */
+html.dark .text-smotiva-carbon {
+  color: #F5F5F5 !important;
+}
+
+html.dark .text-neutral-900,
+html.dark .text-neutral-800 {
+  color: #F0F0F0 !important;
+}
+
+html.dark .text-neutral-700 {
+  color: #D4D4D4 !important;
+}
+
+html.dark .text-neutral-600 {
+  color: #A3A3A3 !important;
+}
+
+html.dark .text-neutral-500 {
+  color: #8E8E8E !important;
+}
+
+/* Subtle Architectural Grid in Dark Mode */
+html.dark .bg-grid-subtle {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px) !important;
+}
+
+/* Inputs, Selects, and Textareas */
+html.dark input,
+html.dark select,
+html.dark textarea {
+  background-color: #1E1E1E !important;
+  border-color: #333333 !important;
+  color: #FFFFFF !important;
+}
+
+html.dark input::placeholder,
+html.dark textarea::placeholder {
+  color: #6B7280 !important;
+}
+
+html.dark select option {
+  background-color: #1E1E1E;
+  color: #FFFFFF;
+}
+
+/* Elevation & Shadows */
+html.dark .shadow-brand-card {
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.6), 0 2px 8px -1px rgba(0, 0, 0, 0.4) !important;
+}
+
+html.dark .shadow-2xs,
+html.dark .shadow-xs {
+  box-shadow: 0 2px 8px -1px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Interactive Hover States */
+html.dark .hover\:bg-\[\#FAF8EF\]:hover {
+  background-color: #242424 !important;
+}
+
+html.dark .hover\:bg-neutral-100:hover,
+html.dark .hover\:bg-neutral-200\/50:hover {
+  background-color: #262626 !important;
+}
+
+/* Modals & Dialogs */
+html.dark .modal-content,
+html.dark [role="dialog"] {
+  background-color: #181818 !important;
+  border-color: #2C2C2C !important;
+}
+

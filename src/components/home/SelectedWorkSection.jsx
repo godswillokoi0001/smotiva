@@ -1,85 +1,56 @@
-// src/pages/Projects.jsx
+// src/components/home/SelectedWorkSection.jsx
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { ArrowUpRight, ArrowRight, Filter, TrendingUp } from 'lucide-react';
-import { caseStudies } from '../data/brandData';
-import CaseStudyModal from '../components/common/CaseStudyModal';
-import FinalCtaSection from '../components/home/FinalCtaSection';
+import { NavLink } from 'react-router-dom';
+import { ArrowUpRight, ArrowRight, Layers, CheckCircle2, TrendingUp } from 'lucide-react';
+import { caseStudies } from '../../data/brandData';
+import CaseStudyModal from '../common/CaseStudyModal';
 
-export default function Projects({ onOpenProjectModal }) {
-  const [activeFilter, setActiveFilter] = useState('All');
+export default function SelectedWorkSection({ onStartProject }) {
   const [selectedProject, setSelectedProject] = useState(null);
 
-  const filters = ['All', 'Brand Systems', 'Web Platforms', 'Product UX'];
-
-  const filteredProjects = caseStudies.filter((item) => {
-    if (activeFilter === 'All') return true;
-    if (activeFilter === 'Brand Systems') return item.category.includes('Brand') || item.category.includes('Identity');
-    if (activeFilter === 'Web Platforms') return item.category.includes('Platform') || item.category.includes('Web');
-    if (activeFilter === 'Product UX') return item.category.includes('UX') || item.category.includes('Product');
-    return true;
-  });
-
   return (
-    <div className="min-h-screen bg-[#FAF8EF] pt-32 sm:pt-40">
-      
-      {/* Page Header */}
-      <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pb-14 border-b border-[#E8E3D5]">
-        <div className="max-w-3xl space-y-4">
-          <div className="inline-flex items-center gap-2 text-xs font-heading font-bold uppercase tracking-widest text-smotiva-carbon">
-            <span className="w-2 h-2 rounded-full bg-smotiva-coral" />
-            <span>Case Studies & Production Systems</span>
+    <section className="py-24 lg:py-32 bg-[#FAF8EF] border-t border-b border-[#E8E3D5]">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+        
+        {/* Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-14 border-b border-[#E8E3D5]">
+          <div className="max-w-2xl space-y-4">
+            <div className="inline-flex items-center gap-2 text-xs font-heading font-bold uppercase tracking-widest text-smotiva-carbon">
+              <span className="w-2 h-2 rounded-full bg-smotiva-coral" />
+              <span>Evidence of Systemic Craft</span>
+            </div>
+
+            <h2 className="font-heading text-3xl sm:text-5xl font-bold text-smotiva-carbon tracking-tight leading-tight">
+              Selected Case Studies
+            </h2>
+
+            <p className="font-body text-neutral-600 text-lg leading-relaxed">
+              We do not present static screenshots. We present the commercial barrier, 
+              the diagnostic thinking, and the verifiable business outcome.
+            </p>
           </div>
 
-          <h1 className="font-heading text-4xl sm:text-6xl font-bold text-smotiva-carbon tracking-tightest leading-tight">
-            Strategic solutions, <br />
-            <span className="text-smotiva-blue">not decoration.</span>
-          </h1>
-
-          <p className="font-body text-neutral-600 text-lg sm:text-xl leading-relaxed">
-            Explore how Smotiva has helped logistics operators, luxury real estate developers, 
-            software companies, and digital media houses transform disjointed touchpoints into unified, high-performing brand assets.
-          </p>
+          <NavLink
+            to="/projects"
+            className="inline-flex items-center gap-2 text-sm font-heading font-bold text-smotiva-blue hover:text-smotiva-coral transition-colors"
+          >
+            <span>View All Projects</span>
+            <ArrowRight size={16} />
+          </NavLink>
         </div>
 
-        {/* Filter Bar */}
-        <div className="mt-12 flex flex-wrap items-center gap-2 pt-6 border-t border-[#E8E3D5]">
-          <span className="text-xs font-heading font-bold text-neutral-500 mr-2 flex items-center gap-1.5">
-            <Filter size={14} /> Filter Focus:
-          </span>
-          {filters.map((filter) => (
-            <button
-              key={filter}
-              onClick={() => setActiveFilter(filter)}
-              className={`px-4 py-2 rounded-xl text-xs font-heading font-bold transition-all ${
-                activeFilter === filter
-                  ? 'bg-smotiva-blue text-white shadow-brand-card'
-                  : 'bg-white border border-[#E8E3D5] text-smotiva-carbon hover:bg-[#F4F0E6]'
-              }`}
-            >
-              {filter}
-            </button>
-          ))}
-        </div>
-      </section>
-
-      {/* Case Studies Archive */}
-      <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-16">
-        <div className="space-y-14">
-          {filteredProjects.map((project) => (
-            <motion.div
+        {/* Case Studies List with Real Photography */}
+        <div className="mt-14 space-y-12">
+          {caseStudies.map((project) => (
+            <div
               key={project.id}
-              layout
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3 }}
               onClick={() => setSelectedProject(project)}
               className="group cursor-pointer rounded-3xl border border-[#E8E3D5] bg-white hover:border-smotiva-blue hover:shadow-brand-card transition-all duration-300 overflow-hidden"
             >
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 items-stretch">
                 
-                {/* Visual Imagery Frame */}
-                <div className="lg:col-span-5 relative min-h-[300px] lg:min-h-[440px] bg-smotiva-carbon overflow-hidden">
+                {/* Visual Imagery Frame (Lg: 5 Cols) */}
+                <div className="lg:col-span-5 relative min-h-[300px] lg:min-h-[420px] bg-smotiva-carbon overflow-hidden">
                   <img 
                     src={project.image} 
                     alt={project.title} 
@@ -88,7 +59,7 @@ export default function Projects({ onOpenProjectModal }) {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-smotiva-carbon/80 via-smotiva-carbon/20 to-transparent" />
                   
-                  {/* Category Pill */}
+                  {/* Category Pill Overlay */}
                   <div className="absolute top-6 left-6 z-10">
                     <span className="px-3.5 py-1.5 rounded-full text-xs font-heading font-bold uppercase tracking-wider bg-white/95 text-smotiva-carbon shadow-md">
                       {project.category}
@@ -106,8 +77,9 @@ export default function Projects({ onOpenProjectModal }) {
                   </div>
                 </div>
 
-                {/* Narrative Breakdown */}
+                {/* Narrative & Metrics Column (Lg: 7 Cols) */}
                 <div className="lg:col-span-7 p-8 sm:p-12 flex flex-col justify-between space-y-6">
+                  
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
                       <span className="text-xs font-mono text-neutral-500 font-medium">
@@ -119,9 +91,10 @@ export default function Projects({ onOpenProjectModal }) {
                       </span>
                     </div>
 
-                    <h2 className="font-heading text-3xl sm:text-4xl font-bold text-smotiva-carbon group-hover:text-smotiva-blue transition-colors">
+                    <h3 className="font-heading text-3xl sm:text-4xl font-bold text-smotiva-carbon group-hover:text-smotiva-blue transition-colors">
                       {project.title}
-                    </h2>
+                    </h3>
+
                     <p className="font-heading text-base sm:text-lg text-neutral-600 font-medium leading-snug">
                       {project.tagline}
                     </p>
@@ -131,7 +104,7 @@ export default function Projects({ onOpenProjectModal }) {
                     </p>
                   </div>
 
-                  {/* 2-Column Challenge vs Result Snapshot */}
+                  {/* Challenge & Result Preview */}
                   <div className="grid sm:grid-cols-2 gap-4 pt-2">
                     <div className="p-4 rounded-xl bg-[#FAF8EF] border border-[#E8E3D5] text-xs">
                       <div className="font-heading font-bold uppercase tracking-wider text-smotiva-coral mb-1">
@@ -144,16 +117,16 @@ export default function Projects({ onOpenProjectModal }) {
 
                     <div className="p-4 rounded-xl bg-[#FAF8EF] border border-[#E8E3D5] text-xs">
                       <div className="font-heading font-bold uppercase tracking-wider text-smotiva-blue mb-1 flex items-center gap-1">
-                        <TrendingUp size={13} />
-                        Commercial Outcome:
+                        <TrendingUp size={12} />
+                        The Result:
                       </div>
-                      <p className="font-body text-neutral-900 font-medium line-clamp-3">
+                      <p className="font-body text-neutral-800 font-medium line-clamp-3">
                         {project.result}
                       </p>
                     </div>
                   </div>
 
-                  {/* Metrics & Deliverables */}
+                  {/* Metrics Bar */}
                   <div className="pt-4 border-t border-[#E8E3D5] flex items-center justify-between flex-wrap gap-4">
                     <div className="flex items-center gap-6">
                       {project.metrics.slice(0, 2).map((m, mIdx) => (
@@ -182,21 +155,19 @@ export default function Projects({ onOpenProjectModal }) {
                 </div>
 
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
-      </section>
+
+      </div>
 
       {/* Deep-Dive Modal */}
       <CaseStudyModal
         project={selectedProject}
         isOpen={Boolean(selectedProject)}
         onClose={() => setSelectedProject(null)}
-        onStartProject={onOpenProjectModal}
+        onStartProject={onStartProject}
       />
-
-      {/* Final CTA */}
-      <FinalCtaSection onStartProject={onOpenProjectModal} />
-    </div>
+    </section>
   );
 }

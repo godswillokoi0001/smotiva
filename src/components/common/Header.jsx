@@ -1,198 +1,197 @@
+// src/components/common/Header.jsx
 import React, { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Menu, X, ArrowUpRight } from 'lucide-react';
+import SmotivaLogo from './SmotivaLogo';
+import ThemeToggle from './ThemeToggle';
+import { useTheme } from '../../context/ThemeContext';
 
-// Navigation items configuration
-const navItems = [
-  { name: 'Home', to: '/' },
-  { name: 'About', to: '/about' },
-  { name: 'Services', to: '/services' },
-  { name: 'Projects', to: '/projects' },
-  { name: 'Blog', to: '/blog' },
-];
-
-export default function Header() {
-  const [isOpen, setIsOpen] = useState(false);
+export default function Header({ onOpenProjectModal }) {
   const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { isDark } = useTheme();
+  const location = useLocation();
 
-  // Dynamic Scroll Effect Logic: Listen to scroll position
   useEffect(() => {
     const handleScroll = () => {
-      // Set 'scrolled' to true if user scrolls more than 50px
-      setScrolled(window.scrollY > 50); 
+      setScrolled(window.scrollY > 20);
     };
-
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Handler to close menu after navigation
-  const handleCloseMenu = () => {
-    setIsOpen(false);
-  };
-
-  // Mobile Menu Variants (SLIDE IN FROM RIGHT SIDE)
-  const menuVariants = {
-    hidden: { x: '100%' },
-    visible: {
-      x: 0,
-      transition: {
-        type: 'spring',
-        stiffness: 100,
-        damping: 20,
-      },
-    },
-    exit: {
-      x: '100%',
-      transition: {
-        type: 'tween',
-        duration: 0.3
-      },
-    },
-  };
-
-  // Icon animation transition properties
-  const iconTransition = { duration: 0.3 };
+  const navLinks = [
+    { name: 'Work', path: '/projects' },
+    { name: 'Services', path: '/services' },
+    { name: 'Approach', path: '/approach' },
+    { name: 'About', path: '/about' },
+  ];
 
   return (
-    <header 
-      className={`fixed top-0 w-full z-50 transition-all duration-300 overflow-x-hidden ${
-        scrolled
-          // State on Scroll: Primary Dark (95% opacity) with blur
-          ? 'bg-primary-dark backdrop-blur-md shadow-2xl'
-          // Initial State: Primary Dark (20% opacity) with subtle blur
-          : 'bg-primary-dark/20 shadow-none'
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Adjusted heights: Mobile is 14/16 (slimmer), Desktop is 20/24 */}
-        <div className={`flex justify-between items-center transition-all duration-300 ${scrolled ? 'h-16 md:h-16' : 'h-16 md:h-20'}`}>
-          
-          {/* Logo/Brand Name */}
-          <div className="shrink-0">
-            <NavLink
-              to="/"
-              onClick={handleCloseMenu}
-              className={`text-2xl md:text-3xl font-heading font-extrabold tracking-widest cursor-pointer transition duration-300 transform hover:scale-105 text-white`}
-            >
-              <img 
-                  src="/LOGO WHITE PNG.png" 
-                  alt="Smotiva Logo" 
-                  className="h-6 md:h-7 md:w-auto max-w-full"
-                  />
-            </NavLink>
-          </div>
+    <>
+      <header
+        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
+          scrolled
+            ? isDark
+              ? 'bg-[#121212]/95 backdrop-blur-md border-b border-[#282828] shadow-md py-3.5'
+              : 'bg-[#FAF8EF]/95 backdrop-blur-md border-b border-[#E8E3D5] shadow-xs py-3.5'
+            : 'bg-transparent py-5'
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 flex items-center justify-between">
+          {/* Brand Logo */}
+          <SmotivaLogo variant={isDark ? 'light' : 'default'} symbolSize={34} />
 
-          {/* Desktop Navigation & CTA */}
-          <div className="hidden md:flex items-center space-x-10">
-            <nav>
-              <ul className="flex space-x-2 font-body">
-                {navItems.map((item) => (
-                  <li key={item.name}>
-                    <NavLink
-                      to={item.to}
-                      onClick={handleCloseMenu}
-                      className={({ isActive }) =>
-                        // New dynamic "Pill-Shaped Chip" hover effect
-                        `text-base font-medium tracking-normal py-2 px-4 transition-all duration-300 rounded-full inline-block ${
-                          isActive
-                            ? 'text-accent-teal bg-primary-dark/50' // Active: Teal text, subtle dark background
-                            : 'text-neutral-light hover:text-accent-teal hover:bg-primary-dark/20' // Hover: Teal text, light dark background
-                        }`
-                      }
-                    >
-                      {item.name}
-                    </NavLink>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-            
-            {/* Contact CTA Button (No change needed) */}
-            <NavLink 
-              to="/contact" 
-              onClick={handleCloseMenu} 
-              className="bg-accent-teal hover:bg-opacity-80 text-secondary-dark font-heading font-bold py-[7px] px-7 rounded-lg transition duration-300 text-base transform hover:-translate-y-0.5 border-2 border-accent-teal inline-flex items-center justify-center"
-            >
-              Contact Us
-            </NavLink>
-          </div>
+          {/* Desktop Navigation Links */}
+          <nav className="hidden md:flex items-center gap-8 lg:gap-10">
+            {navLinks.map((link) => (
+              <NavLink
+                key={link.name}
+                to={link.path}
+                className={({ isActive }) =>
+                  `font-body text-sm font-medium transition-colors relative py-1 ${
+                    isActive
+                      ? 'text-smotiva-blue font-semibold'
+                      : isDark
+                        ? 'text-neutral-300 hover:text-white'
+                        : 'text-neutral-700 hover:text-smotiva-blue'
+                  }`
+                }
+              >
+                {({ isActive }) => (
+                  <>
+                    <span>{link.name}</span>
+                    {isActive && (
+                      <motion.div
+                        layoutId="nav-indicator"
+                        className="absolute bottom-0 left-0 right-0 h-0.5 bg-smotiva-coral rounded-full"
+                        transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                      />
+                    )}
+                  </>
+                )}
+              </NavLink>
+            ))}
+          </nav>
 
-          {/* Mobile Menu Button (Icon Smooth Transition) */}
-          <div className="md:hidden">
+          {/* Desktop Right Actions: Theme Toggle + CTA */}
+          <div className="hidden md:flex items-center gap-3.5">
+            <ThemeToggle />
+
             <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="text-white hover:text-accent-teal p-2 focus:outline-none transition duration-300 rounded"
-              aria-label="Toggle menu"
+              onClick={onOpenProjectModal}
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-smotiva-blue text-white font-heading text-sm font-semibold hover:bg-smotiva-coral transition-all shadow-xs group"
             >
-              <AnimatePresence mode="wait" initial={false}>
-                <motion.div
-                  key={isOpen ? 'close' : 'menu'}
-                  initial={{ opacity: 0, rotate: isOpen ? -90 : 90 }}
-                  animate={{ opacity: 1, rotate: 0 }}
-                  exit={{ opacity: 0, rotate: isOpen ? 90 : -90 }}
-                  transition={iconTransition}
-                >
-                  {isOpen ? <X size={28} /> : <Menu size={28} />}
-                </motion.div>
-              </AnimatePresence>
+              <span>Start a Project</span>
+              <ArrowUpRight
+                size={16}
+                className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 text-white"
+              />
+            </button>
+          </div>
+
+          {/* Mobile Menu Trigger & Theme Toggle */}
+          <div className="flex md:hidden items-center gap-2.5">
+            <ThemeToggle className="scale-90" />
+            <button
+              onClick={onOpenProjectModal}
+              className="px-3 py-1.5 rounded-lg bg-smotiva-blue text-white font-heading text-xs font-semibold"
+            >
+              Start Project
+            </button>
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className={`p-2 rounded-lg transition-colors ${
+                isDark 
+                  ? 'text-neutral-200 hover:bg-neutral-800' 
+                  : 'text-neutral-800 hover:bg-neutral-200/50'
+              }`}
+              aria-label="Toggle Navigation Menu"
+            >
+              {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
           </div>
         </div>
-      </div>
+      </header>
 
-      {/* Mobile Menu Panel (Slide-in from right overlay) */}
+      {/* Mobile Drawer */}
       <AnimatePresence>
-        {isOpen && (
+        {mobileMenuOpen && (
           <motion.div
-            variants={menuVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            className="fixed inset-0 top-14 md:hidden bg-primary-dark backdrop-blur-md z-40"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.2 }}
+            className={`fixed inset-x-0 top-[68px] z-30 shadow-xl p-6 md:hidden border-b transition-colors ${
+              isDark 
+                ? 'bg-[#181818] border-[#2C2C2C] text-white' 
+                : 'bg-white border-neutral-200 text-neutral-800'
+            }`}
           >
-            <div className="flex flex-col h-full p-6 space-y-4">
-              {navItems.map((item, index) => (
+            <nav className="flex flex-col space-y-4">
+              {navLinks.map((link) => (
                 <NavLink
-                  key={item.name}
-                  to={item.to}
-                  onClick={handleCloseMenu}
+                  key={link.name}
+                  to={link.path}
+                  onClick={() => setMobileMenuOpen(false)}
                   className={({ isActive }) =>
-                    `text-3xl font-heading font-bold py-3 transition duration-300 border-b border-primary-dark/50 ${
-                      isActive ? 'text-accent-teal' : 'text-neutral-light hover:text-accent-cyan'
+                    `font-heading text-lg py-2 border-b flex items-center justify-between ${
+                      isDark ? 'border-[#262626]' : 'border-neutral-100'
+                    } ${
+                      isActive 
+                        ? 'text-smotiva-blue font-bold' 
+                        : isDark ? 'text-neutral-200' : 'text-neutral-700'
                     }`
                   }
                 >
-                  <motion.span
-                     initial={{ opacity: 0, x: 20 }}
-                     animate={{ opacity: 1, x: 0 }}
-                     transition={{ delay: 0.2 + index * 0.05 }}
-                  >
-                     {item.name}
-                  </motion.span>
+                  <span>{link.name}</span>
+                  <ArrowUpRight size={18} className="text-neutral-400" />
                 </NavLink>
               ))}
-              
-              {/* Mobile Contact Button */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: navItems.length * 0.05 + 0.3 }}
-                className="pt-6"
+
+              <NavLink
+                to="/contact"
+                onClick={() => setMobileMenuOpen(false)}
+                className={`font-heading text-lg py-2 border-b flex items-center justify-between ${
+                  isDark 
+                    ? 'border-[#262626] text-neutral-200' 
+                    : 'border-neutral-100 text-neutral-700'
+                }`}
               >
-                <NavLink
-                  to="/contact"
-                  onClick={handleCloseMenu}
-                  className="block w-full text-center bg-accent-teal hover:bg-opacity-80 text-secondary-dark font-heading font-bold py-3 rounded-lg transition duration-300 shadow-lg text-xl"
+                <span>Direct Contact</span>
+                <ArrowUpRight size={18} className="text-neutral-400" />
+              </NavLink>
+
+              {/* Theme Mode Switch Row in Mobile Menu */}
+              <div className={`py-3 flex items-center justify-between border-b ${
+                isDark ? 'border-[#262626]' : 'border-neutral-100'
+              }`}>
+                <span className="font-heading text-sm font-semibold">
+                  Theme Appearance
+                </span>
+                <ThemeToggle variant="pill" showLabel={true} />
+              </div>
+
+              <div className="pt-2 flex flex-col gap-3">
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    onOpenProjectModal();
+                  }}
+                  className="w-full py-3 rounded-lg bg-smotiva-blue text-white font-heading font-semibold text-center text-sm shadow-md"
                 >
-                  Get Started Today
-                </NavLink>
-              </motion.div>
-            </div>
+                  Start a Project
+                </button>
+                <p className="text-xs text-neutral-500 font-body text-center mt-2">
+                  "Good businesses deserve to be seen properly."
+                </p>
+              </div>
+            </nav>
           </motion.div>
         )}
       </AnimatePresence>
-    </header>
+    </>
   );
 }
+

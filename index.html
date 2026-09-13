@@ -3,7 +3,26 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>smotiva</title>
+    <title>Smotiva — Digital Brand Growth Partner</title>
+    <meta name="description" content="Smotiva is a Digital Brand Growth Partner. We unite brand identity, web architecture, visual communication, and growth into one coherent system. Good businesses deserve to be seen properly." />
+    <meta property="og:title" content="Smotiva — Digital Brand Growth Partner" />
+    <meta property="og:description" content="Smotiva is a Digital Brand Growth Partner. We unite brand identity, web architecture, visual communication, and growth into one coherent system. Good businesses deserve to be seen properly." />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+      (function() {
+        try {
+          const stored = localStorage.getItem('smotiva_theme');
+          const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (stored === 'dark' || (!stored && prefersDark)) {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

@@ -42,7 +42,7 @@ const valueItemVariants = {
 };
 
 
-const ContentBox = ({ title, content, icon: Icon, delay }) => (
+const ContentBox = ({ title, content }) => (
     <motion.div variants={boxItemVariants} className="p-8 rounded-xl bg-secondary-dark text-white shadow-2xl transition duration-300 border-l-4 border-accent-teal/50">
         <h3 className="text-2xl font-heading font-bold mb-4 flex items-center">
             {title}

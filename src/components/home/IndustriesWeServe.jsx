@@ -61,7 +61,8 @@ const itemVariants = {
   },
 };
 
-const IndustryCard = ({ icon: Icon, title, description }) => {
+const IndustryCard = ({ icon: _icon, title, description }) => {
+  const Icon = _icon;
   return (
     <motion.div variants={itemVariants} className="p-4 text-center rounded-xl bg-secondary-dark/80 border-2 border-accent-teal/50 transition-all duration-300 hover:bg-secondary-dark hover:border-accent-teal cursor-default shadow-lg">
       <div className="flex flex-col items-center mb-4 h-full">

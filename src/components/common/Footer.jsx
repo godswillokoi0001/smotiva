@@ -1,145 +1,180 @@
 // src/components/common/Footer.jsx
 import React from 'react';
-import { Mail, Phone, MapPin, ArrowRight } from 'lucide-react'; 
-import { motion } from 'framer-motion';
+import { NavLink } from 'react-router-dom';
+import { ArrowUpRight, MapPin, Mail, Phone, Globe } from 'lucide-react';
+import SmotivaLogo, { SmotivaSymbol } from './SmotivaLogo';
+import ThemeToggle from './ThemeToggle';
 
-// Data for footer links
-const quickLinks = [
-  { name: 'Home', page: 'home' },
-  { name: 'About Us', page: 'about' },
-  { name: 'Services', page: 'services' },
-  { name: 'Projects', page: 'projects' },
-  { name: 'Contact', page: 'contact' },
-];
-
-const serviceLinks = [
-  'Brand Identity & Design',
-  'Digital Solutions',
-  'Content & Media',
-  'Training & Consultancy',
-];
-
-export default function Footer({ onNavigate }) {
-
-  const handleNavigation = (page) => {
-    // This connects the footer links back to the main App state navigation
-    if (onNavigate) {
-      onNavigate(page);
-    }
-  };
+export default function Footer({ onOpenProjectModal }) {
+  const currentYear = new Date().getFullYear();
 
   return (
-    // The entire footer is enclosed in the secondary dark color
-    <motion.footer 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-        className="bg-secondary-dark"
-    >
-      
-      {/* Main Footer Content Row */}
-      <div className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-10 lg:gap-8 border-b border-neutral-gray/30 pb-10">
+    <footer className="bg-smotiva-carbon text-white pt-20 pb-12 border-t border-neutral-800">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+        {/* Top Section: Brand Statement & CTA */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 pb-16 border-b border-neutral-800">
+          <div className="lg:col-span-7 space-y-6">
+            <SmotivaLogo variant="light" symbolSize={38} showTagline={true} />
             
-            {/* Column 1: Logo and Mission */}
-            <div className="col-span-2 md:col-span-2">
-                              <a 
-                  href="#" 
-                  onClick={() => handleNavigation('home')}
-                  className="cursor-pointer hover:opacity-80 transition duration-300 transform hover:scale-105 "
-                >
-                  <img 
-                  src="/LOGO WHITE PNG.png" 
-                  alt="Smotiva Logo" 
-                  className="h-7 md: w-auto mb-4"
-                  />
-                </a>
-              <p className="text-neutral-gray font-body text-sm leading-relaxed max-w-sm">
-                Smotiva is a forward-thinking innovation and design company that leverages technology, creativity, and motivational strategies to empower people, businesses, and communities.
+            <p className="font-heading text-2xl sm:text-3xl lg:text-4xl text-white font-medium tracking-tight max-w-xl leading-snug">
+              Good businesses deserve to be seen properly.
+            </p>
+            
+            <p className="font-body text-neutral-400 text-sm sm:text-base max-w-lg leading-relaxed">
+              Smotiva is a Digital Brand Growth Partner. We align brand strategy, 
+              identity design, digital platforms, and ongoing communication into one clear, high-impact system.
+            </p>
+          </div>
+
+          <div className="lg:col-span-5 flex flex-col justify-between items-start lg:items-end space-y-6">
+            <div className="text-left lg:text-right">
+              <span className="font-heading text-xs uppercase tracking-widest text-smotiva-coral font-bold block mb-2">
+                Have an ambitious vision?
+              </span>
+              <p className="text-sm text-neutral-400 max-w-sm">
+                Let's talk about where your brand is today and where it needs to be.
               </p>
             </div>
 
-            {/* Column 2: Quick Links */}
-            <div>
-              <h4 className="text-lg font-heading font-semibold text-white mb-4 uppercase">
-                Quick Links
-              </h4>
-              <ul className="space-y-3">
-                {quickLinks.map((link) => (
-                  <li key={link.name}>
-                    <a
-                      href={`#${link.page}`}
-                      onClick={() => handleNavigation(link.page)}
-                      className="text-neutral-gray font-body text-base hover:text-accent-teal transition duration-200 flex items-center group"
-                    >
-                      {link.name}
-                      <ArrowRight size={14} className="ml-2 opacity-0 group-hover:opacity-100 transform -translate-x-1 group-hover:translate-x-0 transition-all duration-300 text-accent-cyan" />
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <button
+              onClick={onOpenProjectModal}
+              className="inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-smotiva-blue text-white font-heading font-bold text-sm hover:bg-smotiva-coral transition-all shadow-brand-card hover:shadow-brand-hover group"
+            >
+              <span>Start a Project</span>
+              <ArrowUpRight size={18} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </button>
+          </div>
+        </div>
 
-            {/* Column 3: Services */}
-            <div>
-              <h4 className="text-lg font-heading font-semibold text-white mb-4 uppercase">
-                Services
-              </h4>
-              <ul className="space-y-3">
-                {serviceLinks.map((service) => (
-                  <li key={service}>
-                    <a
-                      href="#services" 
-                      onClick={() => handleNavigation('services')}
-                      className="text-neutral-gray font-body text-base hover:text-accent-teal transition duration-200"
-                    >
-                      {service}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Column 4: Contact Info */}
-            <div>
-              <h4 className="text-lg font-heading font-semibold text-white mb-4 uppercase">
-                Contact Info
-              </h4>
-              <ul className="space-y-3 font-body text-base">
-                <li className="flex items-start text-neutral-gray">
-                  <MapPin size={18} className="text-accent-teal mr-3 mt-1 shrink-0" />
-                  <p>Abuja, Nigeria</p>
-                </li>
-                <li className="flex items-start">
-                  <Phone size={18} className="text-accent-teal mr-3 mt-1 shrink-0" />
-                  <a href="tel:+2348037038180" className="text-neutral-gray hover:text-accent-teal transition duration-200">
-                    +234 803 703 8180
-                  </a>
-                </li>
-                <li className="flex items-start">
-                  <Mail size={18} className="text-accent-teal mr-3 mt-1 shrink-0" />
-                  <a href="mailto:info@smotiva.com" className="text-neutral-gray hover:text-accent-teal transition duration-200">
-                    info@smotiva.com
-                  </a>
-                </li>
-              </ul>
-            </div>
-
+        {/* Middle Section: Navigation & Links */}
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-12 gap-8 py-14 border-b border-neutral-800 text-sm">
+          {/* Col 1: System */}
+          <div className="lg:col-span-3 space-y-4">
+            <h4 className="font-heading font-bold text-xs uppercase tracking-widest text-neutral-400">
+              The System
+            </h4>
+            <ul className="space-y-2.5 font-body text-neutral-300">
+              <li>
+                <NavLink to="/projects" className="hover:text-smotiva-coral transition-colors">
+                  Selected Work
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/services" className="hover:text-smotiva-coral transition-colors">
+                  Four-Pillar Architecture
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/approach" className="hover:text-smotiva-coral transition-colors">
+                  The Smotiva Process
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/about" className="hover:text-smotiva-coral transition-colors">
+                  About & Philosophy
+                </NavLink>
+              </li>
+            </ul>
           </div>
 
-          {/* Bottom Legal Bar */}
-          <div className="flex flex-col md:flex-row justify-between items-center pt-8 text-neutral-gray text-sm font-body">
-            <p className="order-2 md:order-1 mt-4 md:mt-0">
-              © 2025 Smotiva. All rights reserved.
-            </p>
-            <div className="order-1 md:order-2 space-x-6">
-              <a href="#" className="hover:text-accent-teal transition duration-200">Privacy Policy</a>
-              <a href="#" className="hover:text-accent-teal transition duration-200">Terms of Service</a>
+          {/* Col 2: Services */}
+          <div className="lg:col-span-3 space-y-4">
+            <h4 className="font-heading font-bold text-xs uppercase tracking-widest text-neutral-400">
+              Services
+            </h4>
+            <ul className="space-y-2.5 font-body text-neutral-300">
+              <li>
+                <NavLink to="/services#brand" className="hover:text-smotiva-coral transition-colors">
+                  01 — Brand Identity
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/services#communicate" className="hover:text-smotiva-coral transition-colors">
+                  02 — Visual Communication
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/services#build" className="hover:text-smotiva-coral transition-colors">
+                  03 — Web & Platforms
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/services#grow" className="hover:text-smotiva-coral transition-colors">
+                  04 — Growth & Direction
+                </NavLink>
+              </li>
+            </ul>
+          </div>
+
+          {/* Col 3: Presence & Location */}
+          <div className="lg:col-span-3 space-y-4">
+            <h4 className="font-heading font-bold text-xs uppercase tracking-widest text-neutral-400">
+              Presence
+            </h4>
+            <div className="space-y-2 font-body text-neutral-300 text-xs sm:text-sm">
+              <div className="flex items-start gap-2">
+                <MapPin size={16} className="text-smotiva-blue shrink-0 mt-0.5" />
+                <span>Abuja, Federal Capital Territory, Nigeria</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Globe size={16} className="text-smotiva-blue shrink-0" />
+                <span>Serving enterprises globally</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Col 4: Contact & Channels */}
+          <div className="lg:col-span-3 space-y-4">
+            <h4 className="font-heading font-bold text-xs uppercase tracking-widest text-neutral-400">
+              Direct Contact
+            </h4>
+            <ul className="space-y-2.5 font-body text-neutral-300">
+              <li>
+                <a 
+                  href="mailto:contact@smotiva.com" 
+                  className="inline-flex items-center gap-2 hover:text-smotiva-coral transition-colors"
+                >
+                  <Mail size={15} className="text-smotiva-blue" />
+                  <span>contact@smotiva.com</span>
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="tel:+2348000000000" 
+                  className="inline-flex items-center gap-2 hover:text-smotiva-coral transition-colors"
+                >
+                  <Phone size={15} className="text-smotiva-blue" />
+                  <span>+234 (0) 800 SMOTIVA</span>
+                </a>
+              </li>
+              <li className="pt-2">
+                <NavLink 
+                  to="/contact" 
+                  className="text-xs font-heading font-bold text-smotiva-coral hover:underline inline-flex items-center gap-1"
+                >
+                  View Inquiry Form <ArrowUpRight size={14} />
+                </NavLink>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Bottom Section: Philosophy, Copyright & Theme Switcher */}
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-body text-neutral-400">
+          <div className="flex items-center gap-2">
+            <span className="font-heading font-bold text-white">SMOTIVA</span>
+            <span>—</span>
+            <span className="tracking-wide">Think clearly. Know your reason. Execute creatively.</span>
+          </div>
+
+          <div className="flex items-center gap-4">
+            <ThemeToggle variant="pill" showLabel={true} className="text-[11px] py-1 px-3" />
+            <div>
+              © {currentYear} Smotiva. All rights reserved.
             </div>
           </div>
         </div>
       </div>
-    </motion.footer>
+    </footer>
   );
 }

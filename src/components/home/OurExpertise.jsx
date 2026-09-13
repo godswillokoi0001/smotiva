@@ -50,7 +50,8 @@ const itemVariants = {
   },
 };
 
-const ExpertiseCard = ({ icon: Icon, title, description }) => {
+const ExpertiseCard = ({ icon: _icon, title, description }) => {
+  const Icon = _icon;
   return (
     <motion.div 
       variants={itemVariants} 
