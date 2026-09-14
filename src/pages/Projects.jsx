@@ -1,202 +1,216 @@
 // src/pages/Projects.jsx
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { ArrowUpRight, ArrowRight, Filter, TrendingUp } from 'lucide-react';
+import { ArrowUpRight, CheckCircle, X, ChevronRight } from 'lucide-react';
 import { caseStudies } from '../data/brandData';
-import CaseStudyModal from '../components/common/CaseStudyModal';
-import FinalCtaSection from '../components/home/FinalCtaSection';
+import CtaSection from '../components/home/CtaSection';
 
 export default function Projects({ onOpenProjectModal }) {
-  const [activeFilter, setActiveFilter] = useState('All');
-  const [selectedProject, setSelectedProject] = useState(null);
-
-  const filters = ['All', 'Brand Systems', 'Web Platforms', 'Product UX'];
-
-  const filteredProjects = caseStudies.filter((item) => {
-    if (activeFilter === 'All') return true;
-    if (activeFilter === 'Brand Systems') return item.category.includes('Brand') || item.category.includes('Identity');
-    if (activeFilter === 'Web Platforms') return item.category.includes('Platform') || item.category.includes('Web');
-    if (activeFilter === 'Product UX') return item.category.includes('UX') || item.category.includes('Product');
-    return true;
-  });
+  const [activeModalProject, setActiveModalProject] = useState(null);
 
   return (
-    <div className="min-h-screen bg-[#FAF8EF] pt-32 sm:pt-40">
+    <div className="w-full pt-32 sm:pt-40">
       
       {/* Page Header */}
-      <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pb-14 border-b border-[#E8E3D5]">
+      <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pb-16 border-b border-inherit">
         <div className="max-w-3xl space-y-4">
-          <div className="inline-flex items-center gap-2 text-xs font-heading font-bold uppercase tracking-widest text-smotiva-carbon">
-            <span className="w-2 h-2 rounded-full bg-smotiva-coral" />
-            <span>Case Studies & Production Systems</span>
-          </div>
-
-          <h1 className="font-heading text-4xl sm:text-6xl font-bold text-smotiva-carbon tracking-tightest leading-tight">
-            Strategic solutions, <br />
-            <span className="text-smotiva-blue">not decoration.</span>
+          <span className="text-xs font-heading font-semibold uppercase tracking-wider text-smotiva-coral">
+            Selected Work
+          </span>
+          <h1 className="font-heading text-4xl sm:text-6xl font-bold tracking-tight text-smotiva-charcoal dark:text-white leading-[1.08]">
+            Work that moves businesses forward.
           </h1>
-
-          <p className="font-body text-neutral-600 text-lg sm:text-xl leading-relaxed">
-            Explore how Smotiva has helped logistics operators, luxury real estate developers, 
-            software companies, and digital media houses transform disjointed touchpoints into unified, high-performing brand assets.
+          <p className="font-body text-base sm:text-lg text-neutral-600 dark:text-neutral-300 leading-relaxed font-normal">
+            Every project represents a commercial challenge solved with clear thinking, disciplined design, and robust technology.
           </p>
         </div>
-
-        {/* Filter Bar */}
-        <div className="mt-12 flex flex-wrap items-center gap-2 pt-6 border-t border-[#E8E3D5]">
-          <span className="text-xs font-heading font-bold text-neutral-500 mr-2 flex items-center gap-1.5">
-            <Filter size={14} /> Filter Focus:
-          </span>
-          {filters.map((filter) => (
-            <button
-              key={filter}
-              onClick={() => setActiveFilter(filter)}
-              className={`px-4 py-2 rounded-xl text-xs font-heading font-bold transition-all ${
-                activeFilter === filter
-                  ? 'bg-smotiva-blue text-white shadow-brand-card'
-                  : 'bg-white border border-[#E8E3D5] text-smotiva-carbon hover:bg-[#F4F0E6]'
-              }`}
-            >
-              {filter}
-            </button>
-          ))}
-        </div>
       </section>
 
-      {/* Case Studies Archive */}
-      <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-16">
-        <div className="space-y-14">
-          {filteredProjects.map((project) => (
-            <motion.div
+      {/* Editorial Case Studies Grid */}
+      <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-16 border-b border-inherit">
+        <div className="divide-y divide-smotiva-border dark:divide-neutral-800">
+          {caseStudies.map((project, idx) => (
+            <div 
               key={project.id}
-              layout
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3 }}
-              onClick={() => setSelectedProject(project)}
-              className="group cursor-pointer rounded-3xl border border-[#E8E3D5] bg-white hover:border-smotiva-blue hover:shadow-brand-card transition-all duration-300 overflow-hidden"
+              className="py-16 sm:py-20 first:pt-4 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center group"
             >
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 items-stretch">
-                
-                {/* Visual Imagery Frame */}
-                <div className="lg:col-span-5 relative min-h-[300px] lg:min-h-[440px] bg-smotiva-carbon overflow-hidden">
-                  <img 
-                    src={project.image} 
-                    alt={project.title} 
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90"
+              {/* Project Visual Frame */}
+              <div className="lg:col-span-7 order-2 lg:order-1">
+                <div 
+                  onClick={() => setActiveModalProject(project)}
+                  className="cursor-pointer overflow-hidden rounded-2xl border border-smotiva-border dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900 aspect-[16/10] relative shadow-xs"
+                >
+                  <img
+                    src={project.image}
+                    alt={project.title}
                     referrerPolicy="no-referrer"
+                    className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.02]"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-smotiva-carbon/80 via-smotiva-carbon/20 to-transparent" />
-                  
-                  {/* Category Pill */}
-                  <div className="absolute top-6 left-6 z-10">
-                    <span className="px-3.5 py-1.5 rounded-full text-xs font-heading font-bold uppercase tracking-wider bg-white/95 text-smotiva-carbon shadow-md">
-                      {project.category}
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
+                    <span className="opacity-0 group-hover:opacity-100 transition-opacity bg-neutral-900/90 text-white text-xs font-heading font-medium px-4 py-2 rounded-md inline-flex items-center gap-1.5 shadow-lg">
+                      View Case Details <ArrowUpRight size={14} />
                     </span>
                   </div>
-
-                  {/* Client & Year Overlay */}
-                  <div className="absolute bottom-6 left-6 right-6 z-10 text-white">
-                    <div className="text-xs font-mono uppercase tracking-widest text-neutral-300">
-                      {project.industry}
-                    </div>
-                    <div className="font-heading text-lg font-bold">
-                      {project.client}
-                    </div>
-                  </div>
                 </div>
-
-                {/* Narrative Breakdown */}
-                <div className="lg:col-span-7 p-8 sm:p-12 flex flex-col justify-between space-y-6">
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs font-mono text-neutral-500 font-medium">
-                        Case Study • {project.year}
-                      </span>
-                      <span className="inline-flex items-center gap-1 text-xs font-heading font-bold text-smotiva-blue group-hover:text-smotiva-coral transition-colors">
-                        <span>Inspect Architecture</span>
-                        <ArrowUpRight size={14} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                      </span>
-                    </div>
-
-                    <h2 className="font-heading text-3xl sm:text-4xl font-bold text-smotiva-carbon group-hover:text-smotiva-blue transition-colors">
-                      {project.title}
-                    </h2>
-                    <p className="font-heading text-base sm:text-lg text-neutral-600 font-medium leading-snug">
-                      {project.tagline}
-                    </p>
-
-                    <p className="font-body text-sm sm:text-base text-neutral-600 leading-relaxed">
-                      {project.summary}
-                    </p>
-                  </div>
-
-                  {/* 2-Column Challenge vs Result Snapshot */}
-                  <div className="grid sm:grid-cols-2 gap-4 pt-2">
-                    <div className="p-4 rounded-xl bg-[#FAF8EF] border border-[#E8E3D5] text-xs">
-                      <div className="font-heading font-bold uppercase tracking-wider text-smotiva-coral mb-1">
-                        The Challenge:
-                      </div>
-                      <p className="font-body text-neutral-700 line-clamp-3">
-                        {project.challenge}
-                      </p>
-                    </div>
-
-                    <div className="p-4 rounded-xl bg-[#FAF8EF] border border-[#E8E3D5] text-xs">
-                      <div className="font-heading font-bold uppercase tracking-wider text-smotiva-blue mb-1 flex items-center gap-1">
-                        <TrendingUp size={13} />
-                        Commercial Outcome:
-                      </div>
-                      <p className="font-body text-neutral-900 font-medium line-clamp-3">
-                        {project.result}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Metrics & Deliverables */}
-                  <div className="pt-4 border-t border-[#E8E3D5] flex items-center justify-between flex-wrap gap-4">
-                    <div className="flex items-center gap-6">
-                      {project.metrics.slice(0, 2).map((m, mIdx) => (
-                        <div key={mIdx}>
-                          <div className="font-heading text-xl font-bold text-smotiva-blue">
-                            {m.value}
-                          </div>
-                          <div className="text-[10px] uppercase font-body text-neutral-500 tracking-wider">
-                            {m.label}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-
-                    <button 
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setSelectedProject(project);
-                      }}
-                      className="px-4 py-2 rounded-xl bg-smotiva-carbon text-white text-xs font-heading font-bold hover:bg-smotiva-blue transition-colors"
-                    >
-                      Read Full Case Study
-                    </button>
-                  </div>
-
-                </div>
-
               </div>
-            </motion.div>
+
+              {/* Narrative & Details */}
+              <div className="lg:col-span-5 order-1 lg:order-2 space-y-6">
+                <div className="space-y-2">
+                  <div className="flex items-center gap-3">
+                    <span className="text-xs font-mono text-neutral-400">
+                      0{idx + 1}
+                    </span>
+                    <span className="text-xs font-heading font-medium text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">
+                      {project.industry}
+                    </span>
+                  </div>
+                  <h2 
+                    onClick={() => setActiveModalProject(project)}
+                    className="cursor-pointer font-heading text-2xl sm:text-3xl font-bold text-smotiva-charcoal dark:text-white group-hover:text-smotiva-blue transition-colors"
+                  >
+                    {project.title}
+                  </h2>
+                </div>
+
+                <div className="text-xs font-heading font-semibold text-smotiva-coral uppercase tracking-wide">
+                  {project.category}
+                </div>
+
+                <p className="font-body text-sm sm:text-base text-neutral-600 dark:text-neutral-300 leading-relaxed">
+                  {project.summary}
+                </p>
+
+                {/* Key Deliverables */}
+                <div className="pt-2">
+                  <span className="text-xs font-heading font-semibold uppercase tracking-wider text-neutral-400 block mb-2">
+                    Delivered
+                  </span>
+                  <div className="flex flex-wrap gap-2">
+                    {project.deliverables.map((item, i) => (
+                      <span 
+                        key={i}
+                        className="text-xs px-2.5 py-1 rounded-md border border-smotiva-border dark:border-neutral-800 text-smotiva-charcoal dark:text-neutral-300 bg-white dark:bg-neutral-900/50"
+                      >
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="pt-2">
+                  <button
+                    onClick={() => setActiveModalProject(project)}
+                    className="text-xs font-heading font-semibold text-smotiva-blue inline-flex items-center gap-1 hover:underline"
+                  >
+                    Read challenge and thinking <ChevronRight size={14} />
+                  </button>
+                </div>
+              </div>
+            </div>
           ))}
         </div>
       </section>
 
-      {/* Deep-Dive Modal */}
-      <CaseStudyModal
-        project={selectedProject}
-        isOpen={Boolean(selectedProject)}
-        onClose={() => setSelectedProject(null)}
-        onStartProject={onOpenProjectModal}
-      />
+      {/* Case Study Detail Modal */}
+      {activeModalProject && (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/60 backdrop-blur-sm animate-fadeIn"
+          onClick={() => setActiveModalProject(null)}
+        >
+          <div 
+            className="bg-white dark:bg-neutral-900 rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto border border-neutral-200 dark:border-neutral-800 p-6 sm:p-10 shadow-2xl space-y-8"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Header */}
+            <div className="flex items-start justify-between gap-4 border-b pb-6 border-neutral-200 dark:border-neutral-800">
+              <div className="space-y-1">
+                <span className="text-xs font-heading uppercase tracking-wider text-smotiva-navy dark:text-smotiva-cyan font-semibold">
+                  {activeModalProject.industry} • {activeModalProject.year}
+                </span>
+                <h3 className="font-heading text-2xl sm:text-3xl font-bold text-neutral-900 dark:text-white">
+                  {activeModalProject.title}
+                </h3>
+                <p className="text-xs text-neutral-500 dark:text-neutral-400">
+                  {activeModalProject.category}
+                </p>
+              </div>
+              <button
+                onClick={() => setActiveModalProject(null)}
+                className="p-2 rounded-lg border border-neutral-200 dark:border-neutral-800 text-neutral-500 hover:text-neutral-900 dark:hover:text-white"
+              >
+                <X size={18} />
+              </button>
+            </div>
 
-      {/* Final CTA */}
-      <FinalCtaSection onStartProject={onOpenProjectModal} />
+            {/* Image */}
+            <div className="aspect-[16/9] rounded-xl overflow-hidden border border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-950">
+              <img
+                src={activeModalProject.image}
+                alt={activeModalProject.title}
+                referrerPolicy="no-referrer"
+                className="w-full h-full object-cover"
+              />
+            </div>
+
+            {/* Challenge & Thinking */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-sm">
+              <div className="space-y-2">
+                <h4 className="font-heading font-bold text-xs uppercase tracking-wider text-neutral-400">
+                  The Challenge
+                </h4>
+                <p className="font-body text-neutral-600 dark:text-neutral-300 leading-relaxed">
+                  {activeModalProject.challenge}
+                </p>
+              </div>
+              <div className="space-y-2">
+                <h4 className="font-heading font-bold text-xs uppercase tracking-wider text-neutral-400">
+                  Strategic Thinking
+                </h4>
+                <p className="font-body text-neutral-600 dark:text-neutral-300 leading-relaxed">
+                  {activeModalProject.thinking}
+                </p>
+              </div>
+            </div>
+
+            {/* Deliverables Delivered */}
+            <div className="space-y-3 pt-2 border-t border-neutral-200 dark:border-neutral-800">
+              <h4 className="font-heading font-bold text-xs uppercase tracking-wider text-neutral-400">
+                Deliverables & System Components
+              </h4>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                {activeModalProject.work.map((item, idx) => (
+                  <div key={idx} className="flex items-start gap-2 text-xs text-neutral-700 dark:text-neutral-300">
+                    <CheckCircle size={14} className="text-smotiva-navy dark:text-smotiva-cyan shrink-0 mt-0.5" />
+                    <span>{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Actions */}
+            <div className="pt-4 border-t border-neutral-200 dark:border-neutral-800 flex justify-between items-center">
+              <button
+                onClick={() => {
+                  setActiveModalProject(null);
+                  onOpenProjectModal();
+                }}
+                className="px-6 py-3 rounded-lg bg-smotiva-navy dark:bg-smotiva-cyan text-white dark:text-smotiva-charcoal font-heading font-semibold text-xs hover:opacity-95 transition-opacity"
+              >
+                Start a project like this →
+              </button>
+              <button
+                onClick={() => setActiveModalProject(null)}
+                className="text-xs text-neutral-500 hover:underline font-body"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* CTA Section */}
+      <CtaSection onStartProject={onOpenProjectModal} />
     </div>
   );
 }

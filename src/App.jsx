@@ -11,9 +11,7 @@ const Home = lazy(() => import('./pages/Home'));
 const About = lazy(() => import('./pages/About'));
 const Services = lazy(() => import('./pages/Services'));
 const Projects = lazy(() => import('./pages/Projects'));
-const Approach = lazy(() => import('./pages/Approach'));
 const Contact = lazy(() => import('./pages/Contact'));
-const Blog = lazy(() => import('./pages/Blog'));
 
 // Scroll to top on navigation
 function ScrollToTop() {
@@ -37,7 +35,7 @@ export default function App() {
 
   return (
     <ThemeProvider>
-      <div className="min-h-screen bg-[#FAF8EF] dark:bg-[#121212] text-smotiva-carbon dark:text-neutral-100 font-body flex flex-col selection:bg-smotiva-coral selection:text-white transition-colors duration-200">
+      <div className="min-h-screen bg-white dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100 font-body flex flex-col selection:bg-smotiva-navy selection:text-white dark:selection:bg-smotiva-cyan dark:selection:text-smotiva-charcoal transition-colors duration-200">
         <ScrollToTop />
         
         {/* Global Header */}
@@ -48,22 +46,23 @@ export default function App() {
           <Suspense fallback={
             <div className="min-h-[60vh] flex items-center justify-center">
               <div className="flex flex-col items-center gap-3">
-                <div className="w-8 h-8 rounded-full border-2 border-smotiva-blue border-t-smotiva-coral animate-spin" />
-                <span className="text-xs font-heading font-bold text-neutral-500 tracking-wider uppercase">
-                  Loading Smotiva System...
+                <div className="w-8 h-8 rounded-full border-2 border-smotiva-navy dark:border-smotiva-cyan border-t-transparent animate-spin" />
+                <span className="text-xs font-heading font-semibold text-neutral-400 tracking-wider uppercase">
+                  Loading Smotiva...
                 </span>
               </div>
             </div>
           }>
             <Routes>
+              {/* Primary 4 Information Architecture Pages */}
               <Route path="/" element={<Home onOpenProjectModal={handleOpenProjectModal} />} />
-              <Route path="/about" element={<About onOpenProjectModal={handleOpenProjectModal} />} />
-              <Route path="/services" element={<Services onOpenProjectModal={handleOpenProjectModal} />} />
-              <Route path="/projects" element={<Projects onOpenProjectModal={handleOpenProjectModal} />} />
               <Route path="/work" element={<Projects onOpenProjectModal={handleOpenProjectModal} />} />
-              <Route path="/approach" element={<Approach onOpenProjectModal={handleOpenProjectModal} />} />
+              <Route path="/projects" element={<Navigate to="/work" replace />} />
+              <Route path="/services" element={<Services onOpenProjectModal={handleOpenProjectModal} />} />
+              <Route path="/about" element={<About onOpenProjectModal={handleOpenProjectModal} />} />
               <Route path="/contact" element={<Contact />} />
-              <Route path="/blog" element={<Blog />} />
+              <Route path="/approach" element={<Navigate to="/about" replace />} />
+              <Route path="/blog" element={<Navigate to="/work" replace />} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </Suspense>

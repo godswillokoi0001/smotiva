@@ -4,126 +4,251 @@ import { NavLink } from 'react-router-dom';
 import { useTheme } from '../../context/ThemeContext';
 
 /**
- * The Authentic Smotiva Mark:
- * 4 dynamic geometric forms converging around a central circular negative space hub.
- * Based on the official Smotiva Brand Identity Presentation (2026).
+ * Authentic Smotiva Symbol:
+ * Four-piece geometric forward-play cluster pointing right with circular negative space core.
+ * Extracted directly from Smotiva Brand Conceptualization presentation.
  */
 export function SmotivaSymbol({ 
-  size = 36, 
-  className = '', 
-  variant = 'coral' // 'coral' (#FF4D4D), 'white' (#FFFFFF), 'blue' (#0057FF), 'black' (#121212)
+  size = 30, 
+  color, 
+  className = '',
+  variant = 'coral' // 'coral', 'blue', 'cream', 'white', 'charcoal'
 }) {
-  let fillColor = '#FF4D4D'; // Default signature Coral Red from brand guide
-  if (variant === 'white' || variant === 'light') fillColor = '#FFFFFF';
-  if (variant === 'blue') fillColor = '#0057FF';
-  if (variant === 'black' || variant === 'dark') fillColor = '#121212';
+  // Determine fill color from variant if not explicitly passed
+  let resolvedColor = color;
+  if (!resolvedColor) {
+    switch (variant) {
+      case 'blue':
+        resolvedColor = '#0052FF';
+        break;
+      case 'cream':
+        resolvedColor = '#FAF7F0';
+        break;
+      case 'white':
+        resolvedColor = '#FFFFFF';
+        break;
+      case 'charcoal':
+        resolvedColor = '#141416';
+        break;
+      case 'gold':
+        resolvedColor = '#E5A100';
+        break;
+      case 'coral':
+      default:
+        resolvedColor = '#F04C4C';
+        break;
+    }
+  }
 
   return (
     <svg 
       width={size} 
-      height={size} 
-      viewBox="0 0 54 48" 
+      height={Math.round((size * 42) / 52)} 
+      viewBox="0 0 52 42" 
       fill="none" 
       xmlns="http://www.w3.org/2000/svg"
-      className={`shrink-0 transition-transform duration-300 ${className}`}
+      className={`shrink-0 transition-transform duration-200 ${className}`}
       aria-hidden="true"
     >
-      {/* 
-        Shape 1: Left Curved Wing hugging the central circular negative hub 
-        Left vertical edge: x=4, y=10 to y=38
-        Top sloped line to (20, 16)
-        Concave circular arc around hub (cx=27, cy=24, r=8) to (20, 32)
-        Bottom sloped line back to (4, 38)
-      */}
+      {/* Piece 1: Left Wing with circular arc notch */}
       <path 
-        d="M4 11L19 16.5C18.2 18.8 17.8 21.3 17.8 24C17.8 26.7 18.2 29.2 19 31.5L4 37V11Z" 
-        fill={fillColor} 
+        d="M5 8.5C5 7.4 6 6.8 7 7.3L19.8 13.2C20.8 13.7 21 14.8 20.4 15.6C19 17.4 18.2 19.6 18.2 21C18.2 22.4 19 24.6 20.4 26.4C21 27.2 20.8 28.3 19.8 28.8L7 34.7C6 35.2 5 34.6 5 33.5V8.5Z" 
+        fill={resolvedColor} 
       />
-
-      {/* Shape 2: Top Right Dynamic Forward Triangle */}
+      {/* Piece 2: Top-right upward angled triangle */}
       <path 
-        d="M26 6L42 14.5L28.5 19C27.4 17.2 26 15.6 24.3 14.4L26 6Z" 
-        fill={fillColor} 
+        d="M25.8 5.6C26.7 4.9 28 5.3 28.5 6.3L39.8 14.1C40.6 14.7 40.4 16 39.5 16.3L26.6 18C25.6 18.1 24.8 17.3 25 16.3L25.8 5.6Z" 
+        fill={resolvedColor} 
       />
-
-      {/* Shape 3: Bottom Right Dynamic Forward Triangle */}
+      {/* Piece 3: Bottom-right downward angled triangle */}
       <path 
-        d="M28.5 29L42 33.5L26 42L24.3 33.6C26 32.4 27.4 30.8 28.5 29Z" 
-        fill={fillColor} 
+        d="M26.6 24L39.5 25.7C40.4 26 40.6 27.3 39.8 27.9L28.5 35.7C28 36.7 26.7 37.1 25.8 36.4L25 25.7C24.8 24.7 25.6 23.9 26.6 24Z" 
+        fill={resolvedColor} 
       />
-
-      {/* Shape 4: Far Right Forward Lead Triangle */}
+      {/* Piece 4: Far-right lead triangle */}
       <path 
-        d="M39 20L49 24L39 28V20Z" 
-        fill={fillColor} 
+        d="M35.5 17.4C35.5 16.6 36.4 16.1 37.1 16.5L45.4 20.4C46.1 20.8 46.1 21.8 45.4 22.2L37.1 26.1C36.4 26.5 35.5 26 35.5 25.2V17.4Z" 
+        fill={resolvedColor} 
       />
     </svg>
   );
 }
 
+/**
+ * Authentic Smotiva Typographic Wordmark:
+ * Set in Lufga with signature inverted triangular dot (▼) replacing the dot on 'i'.
+ */
+export function SmotivaWordmark({ 
+  className = '', 
+  color, 
+  sizeClass = 'text-xl sm:text-2xl',
+  ariaLabel = 'Smotiva'
+}) {
+  return (
+    <span 
+      className={`font-heading font-bold tracking-tight inline-flex items-baseline select-none ${sizeClass} ${className}`}
+      style={color ? { color } : undefined}
+      aria-label={ariaLabel}
+    >
+      <span>Smot</span>
+      <span className="relative inline-flex flex-col items-center mx-[0.5px]">
+        {/* Signature downward triangle dot */}
+        <svg 
+          viewBox="0 0 10 8" 
+          fill="currentColor" 
+          className="w-[0.38em] h-[0.3em] mb-[0.08em] transform -translate-y-[0.18em]"
+          aria-hidden="true"
+        >
+          <path d="M5 8L0.6 0.8H9.4L5 8Z" />
+        </svg>
+        <span className="leading-none inline-block">ı</span>
+      </span>
+      <span>va</span>
+    </span>
+  );
+}
+
+/**
+ * Authentic Smotiva App Icon Variation (from presentation slide 8):
+ * Rounded squircle container with centered cream/white symbol and notification badge.
+ */
+export function SmotivaAppIcon({ 
+  variant = 'coral', // 'coral', 'blue', 'gold'
+  size = 48,
+  showBadge = true,
+  badgeText = '8+',
+  className = ''
+}) {
+  const bgClasses = {
+    coral: 'bg-smotiva-coral text-white',
+    blue: 'bg-smotiva-blue text-white',
+    gold: 'bg-smotiva-gold text-white',
+  };
+
+  return (
+    <div 
+      className={`relative inline-flex items-center justify-center rounded-2xl shadow-md ${bgClasses[variant] || bgClasses.coral} ${className}`}
+      style={{ width: size, height: size }}
+    >
+      <SmotivaSymbol size={Math.round(size * 0.58)} color="#FAF7F0" />
+      {showBadge && (
+        <span className="absolute -top-1 -right-1 px-1.5 py-0.5 min-w-[18px] text-[10px] font-mono font-bold bg-[#E63946] text-white rounded-full flex items-center justify-center ring-2 ring-white dark:ring-neutral-900 leading-none">
+          {badgeText}
+        </span>
+      )}
+    </div>
+  );
+}
+
+/**
+ * Primary Smotiva Logo Lockup:
+ * Reflects presentation slide 7: "Smotiva" in Electric Blue followed by the Symbol in Coral Red.
+ * Supports light/dark mode and all background variations.
+ */
 export default function SmotivaLogo({ 
-  variant = 'default', // 'default' (blue/black text + coral mark on cream), 'light' (white text + coral/white mark on dark), 'monochrome'
+  variant = 'auto', // 'auto', 'on-light', 'on-blue', 'on-dark', 'on-coral', 'monochrome'
+  layout = 'default', // 'default' (wordmark + symbol on right, matching presentation-7), 'left-symbol', 'symbol-only', 'wordmark-only'
   showTagline = false,
   className = '',
   onClick,
-  symbolSize = 34
+  symbolSize = 28,
+  sizeClass = 'text-xl sm:text-2xl'
 }) {
   let isThemeDark = false;
   try {
     const themeContext = useTheme();
     isThemeDark = themeContext?.isDark || false;
   } catch {
-    // Graceful fallback if rendered outside ThemeProvider
+    // Graceful fallback
   }
 
-  const isLight = variant === 'light' || isThemeDark;
-  const markVariant = variant === 'light' ? 'white' : 'coral';
+  // Determine colors based on presentation specifications:
+  // - On light/cream background (presentation-7 top): Wordmark = Electric Blue #0052FF, Symbol = Coral Red #F04C4C
+  // - On blue background (presentation-7 middle): Wordmark = White #FFFFFF, Symbol = Warm Cream #FAF7F0
+  // - On dark background (presentation-7 bottom): Wordmark = Electric Blue #0052FF, Symbol = Coral Red #F04C4C
+  let wordmarkColor = '#0052FF';
+  let symbolColor = '#F04C4C';
 
+  if (variant === 'on-blue') {
+    wordmarkColor = '#FFFFFF';
+    symbolColor = '#FAF7F0';
+  } else if (variant === 'on-coral') {
+    wordmarkColor = '#FFFFFF';
+    symbolColor = '#FAF7F0';
+  } else if (variant === 'monochrome') {
+    wordmarkColor = isThemeDark ? '#FFFFFF' : '#141416';
+    symbolColor = isThemeDark ? '#FFFFFF' : '#141416';
+  } else if (variant === 'auto') {
+    if (isThemeDark) {
+      wordmarkColor = '#0052FF';
+      symbolColor = '#F04C4C';
+    } else {
+      wordmarkColor = '#0052FF';
+      symbolColor = '#F04C4C';
+    }
+  }
+
+  // Symbol only
+  if (layout === 'symbol-only') {
+    return (
+      <NavLink to="/" onClick={onClick} className={`inline-flex items-center ${className}`} aria-label="Smotiva Home">
+        <SmotivaSymbol size={symbolSize} color={symbolColor} />
+      </NavLink>
+    );
+  }
+
+  // Wordmark only
+  if (layout === 'wordmark-only') {
+    return (
+      <NavLink to="/" onClick={onClick} className={`inline-flex items-center ${className}`} aria-label="Smotiva Home">
+        <SmotivaWordmark color={wordmarkColor} sizeClass={sizeClass} />
+      </NavLink>
+    );
+  }
+
+  // Left symbol
+  if (layout === 'left-symbol') {
+    return (
+      <NavLink 
+        to="/" 
+        onClick={onClick}
+        className={`inline-flex items-center gap-3 group focus:outline-none ${className}`}
+        aria-label="Smotiva - Digital Growth Partner"
+      >
+        <div className="transition-transform duration-200 group-hover:scale-105">
+          <SmotivaSymbol size={symbolSize} color={symbolColor} />
+        </div>
+        <div className="flex flex-col">
+          <SmotivaWordmark color={wordmarkColor} sizeClass={sizeClass} />
+          {showTagline && (
+            <span className="text-[10px] font-heading font-semibold tracking-wider uppercase text-neutral-500 mt-0.5">
+              Digital Growth Partner
+            </span>
+          )}
+        </div>
+      </NavLink>
+    );
+  }
+
+  // Default: Presentation-7 lockup ("Smotiva" wordmark followed by Symbol on the right)
   return (
     <NavLink 
       to="/" 
       onClick={onClick}
-      className={`inline-flex items-center gap-3.5 group cursor-pointer focus:outline-none ${className}`}
-      aria-label="Smotiva - Digital Brand Growth Partner Home"
+      className={`inline-flex items-center gap-2.5 sm:gap-3 group focus:outline-none ${className}`}
+      aria-label="Smotiva - Digital Growth Partner"
     >
-      {/* Authentic Geometric Symbol */}
-      <div className="relative flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
-        <SmotivaSymbol size={symbolSize} variant={markVariant} />
-      </div>
-
-      {/* Wordmark with custom inverted triangular dot on the 'i' */}
       <div className="flex flex-col">
-        <div className="flex items-center font-heading text-2xl md:text-[28px] font-bold tracking-tight leading-none transition-colors duration-200">
-          <span className={isLight ? 'text-white' : 'text-smotiva-carbon group-hover:text-smotiva-blue'}>
-            Smot
-          </span>
-          {/* Custom 'i' with inverted triangle dot from presentation */}
-          <span className="relative inline-flex flex-col items-center">
-            <svg 
-              width="7" 
-              height="6" 
-              viewBox="0 0 7 6" 
-              fill="currentColor" 
-              className={`mb-0.5 ${isLight ? 'text-white' : 'text-smotiva-carbon group-hover:text-smotiva-blue'}`}
-            >
-              <polygon points="0,0 7,0 3.5,6" />
-            </svg>
-            <span className={isLight ? 'text-white' : 'text-smotiva-carbon group-hover:text-smotiva-blue'}>
-              ı
-            </span>
-          </span>
-          <span className={isLight ? 'text-white' : 'text-smotiva-carbon group-hover:text-smotiva-blue'}>
-            va
-          </span>
-        </div>
-
+        <SmotivaWordmark color={wordmarkColor} sizeClass={sizeClass} />
         {showTagline && (
-          <span className={`text-[10px] uppercase font-heading font-bold tracking-widest mt-1 ${
-            isLight ? 'text-neutral-400' : 'text-smotiva-muted'
-          }`}>
-            Digital Brand Growth
+          <span className="text-[10px] font-heading font-semibold tracking-wider uppercase text-neutral-500 mt-0.5">
+            Digital Growth Partner
           </span>
         )}
+      </div>
+
+      <div className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:scale-105">
+        <SmotivaSymbol size={symbolSize} color={symbolColor} />
       </div>
     </NavLink>
   );

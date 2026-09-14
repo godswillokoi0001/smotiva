@@ -8,27 +8,47 @@ export default {
   theme: {
     extend: {
       colors: {
+        // Direct brand color tokens from attached Smotiva identity presentation
+        'smotiva-blue': '#0052FF',       // Primary Brand Cobalt Electric Blue
+        'smotiva-coral': '#F04C4C',      // Primary Brand Coral / Poppy Red
+        'smotiva-cream': '#FAF7F0',      // Signature Warm Cream / Off-White Canvas
+        'smotiva-charcoal': '#141416',   // Deep Charcoal Black
+        'smotiva-gold': '#E5A100',       // Secondary Ochre / Amber Gold
+        'smotiva-border': '#E8E4DA',     // Refined Border on Cream
+        'smotiva-white': '#FFFFFF',      // Pure White
+        'smotiva-nearwhite': '#FAF7F0',  // Near-white is now the signature warm cream
+
+        // Compatibility aliases mapped directly to brand palette
+        'smotiva-navy': '#0052FF',       // Maps to Electric Blue #0052FF
+        'smotiva-cyan': '#0052FF',       // Maps to Electric Blue #0052FF
+        'smotiva-orange': '#F04C4C',     // Maps to Coral Red #F04C4C
+        'smotiva-amber': '#E5A100',      // Maps to Ochre Gold #E5A100
+
+        // Structured object for smotiva.* classes
         smotiva: {
-          blue: '#0057FF',        // Electric Cobalt Blue (Primary Brand)
-          coral: '#FF4D4D',       // Vibrant Coral Red (Primary Mark & Accent)
-          cream: '#FAF8EF',       // Warm Ivory Editorial Background
-          creamSurface: '#F4F0E6',// Slightly darker cream container
-          creamBorder: '#E8E3D5', // Cream container border
-          carbon: '#121212',      // Deep Carbon Black
-          darkSurface: '#1A1A1A', // Dark container surface
-          darkBorder: '#282828',  // Dark container border
-          ochre: '#F2A900',       // Warm Gold / Amber Accent
+          // Primary colors from presentation
+          blue: '#0052FF',
+          coral: '#F04C4C',
+          cream: '#FAF7F0',
+          charcoal: '#141416',
+          gold: '#E5A100',
+          border: '#E8E4DA',
           white: '#FFFFFF',
-          muted: '#737373',       // Neutral muted text
+          nearwhite: '#FAF7F0',
+
+          // Compatibility aliases
+          navy: '#0052FF',
+          cyan: '#0052FF',
+          orange: '#F04C4C',
+          amber: '#E5A100',
+          
+          canvas: '#FAF7F0',     // Signature Warm Cream Canvas
+          canvasAlt: '#F4F0E6',  // Secondary Surface Warm Tone
+          surface: '#FFFFFF',    // Crisp White Card Surface
+          darkCanvas: '#141416', // Deep Charcoal Dark Canvas
+          darkSurface: '#1F1F23',// Elevated Dark Surface
+          darkBorder: '#27272A', // Dark Border
         },
-        // Direct semantic tokens strictly locked to brand palette
-        brand: {
-          blue: '#0057FF',
-          coral: '#FF4D4D',
-          cream: '#FAF8EF',
-          carbon: '#121212',
-          ochre: '#F2A900',
-        }
       },
       fontFamily: {
         heading: ['Lufga', 'system-ui', 'sans-serif'],
@@ -40,24 +60,19 @@ export default {
         tightest: '-0.04em',
         tighter: '-0.025em',
         tight: '-0.015em',
-        widest: '0.15em',
+        wide: '0.05em',
+        widest: '0.12em',
       },
-      boxShadow: {
-        'brand-card': '0 4px 20px -2px rgba(18, 18, 18, 0.04), 0 2px 6px -1px rgba(18, 18, 18, 0.02)',
-        'brand-card-hover': '0 20px 40px -15px rgba(0, 87, 255, 0.12), 0 0 1px 1px rgba(0, 87, 255, 0.2)',
-        'brand-glow-blue': '0 0 40px -10px rgba(0, 87, 255, 0.4)',
-        'brand-glow-coral': '0 0 40px -10px rgba(255, 77, 77, 0.4)',
+      borderRadius: {
+        'sm': '4px',
+        'DEFAULT': '6px',
+        'md': '8px',
+        'lg': '12px',
+        'xl': '16px',
       },
-      animation: {
-        'float': 'float 6s ease-in-out infinite',
-      },
-      keyframes: {
-        float: {
-          '0%, 100%': { transform: 'translateY(0px)' },
-          '50%': { transform: 'translateY(-8px)' },
-        }
-      }
     },
   },    
   plugins: [],  
 }
+
+

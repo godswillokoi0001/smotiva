@@ -1,107 +1,217 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+// src/components/home/SelectedWork.jsx
+import React, { useState } from 'react';
+import { ArrowUpRight, CheckCircle, X, ChevronRight } from 'lucide-react';
+import { caseStudies } from '../../data/brandData';
+import { useTheme } from '../../context/ThemeContext';
 
-export default function SelectedWork() {
-  const container = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-      },
-    },
-  };
-
-  const item = {
-    hidden: { opacity: 0, scale: 0.95 },
-    show: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        duration: 0.6
-      }
-    },
-  };
-
-  const works = [
-    {
-      title: "Brand Identity Restructure",
-      type: "System Redesign",
-      description: "Completely rebuilt a brand's visual system after identifying 15 inconsistencies across their digital presence.",
-      reasoning: "Started with audience research to understand perception gaps, then created a unified system that reduced confusion by 60%.",
-      outcome: "Increased brand recognition and conversion rates."
-    },
-    {
-      title: "Website Information Architecture",
-      type: "Communication Flow",
-      description: "Restructured a website's navigation and content hierarchy to prioritize user journey over aesthetics.",
-      reasoning: "Mapped user behavior data to identify drop-off points, then redesigned the flow to guide visitors through value demonstration.",
-      outcome: "40% improvement in time-on-site and engagement metrics."
-    },
-    {
-      title: "Content Strategy Framework",
-      type: "Messaging Alignment",
-      description: "Developed a comprehensive content system that ensures all messaging supports core business objectives.",
-      reasoning: "Analyzed existing content for gaps and inconsistencies, then built a framework that aligns tone, voice, and messaging across channels.",
-      outcome: "More cohesive brand voice and improved audience trust."
-    }
-  ];
+export default function SelectedWork({ onStartProject }) {
+  const [activeModalProject, setActiveModalProject] = useState(null);
+  const { isDark } = useTheme();
 
   return (
-    <section className="py-20 bg-neutral-light">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          <h2 className="text-4xl font-heading font-bold text-neutral-dark mb-4">
-            Work & Thinking
-          </h2>
-          <p className="text-lg text-neutral-gray max-w-3xl mx-auto">
-            Examples of strategic brand system development, showing the thinking process behind the outcomes.
+    <section id="work" className="py-24 sm:py-32 border-b transition-colors border-inherit">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+        {/* Section Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-16 border-b border-smotiva-border dark:border-neutral-800">
+          <div className="space-y-3">
+            <span className="text-xs font-heading font-semibold uppercase tracking-wider text-smotiva-blue">
+              01 / Selected Work
+            </span>
+            <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-smotiva-charcoal dark:text-white">
+              Work that moves businesses forward.
+            </h2>
+          </div>
+          <p className="font-body text-sm sm:text-base text-neutral-500 dark:text-neutral-400 max-w-md leading-relaxed">
+            Every project represents a commercial challenge solved with clear thinking, disciplined design, and robust technology.
           </p>
-        </motion.div>
+        </div>
 
-        <motion.div
-          className="grid md:grid-cols-3 gap-8"
-          variants={container}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-        >
-          {works.map((work, index) => (
-            <motion.div
-              key={index}
-              variants={item}
-              className="bg-white p-8 rounded-lg border border-neutral-gray/20 hover:shadow-lg transition-shadow duration-300"
+        {/* Projects List - Editorial Dignified Layout */}
+        <div className="divide-y divide-smotiva-border dark:divide-neutral-800">
+          {caseStudies.map((project, idx) => (
+            <div 
+              key={project.id}
+              className="py-16 sm:py-20 first:pt-16 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center group"
             >
-              <div className="mb-4">
-                <span className="text-sm font-heading font-medium text-accent-teal uppercase tracking-wide">
-                  {work.type}
-                </span>
+              {/* Image Preview */}
+              <div className="lg:col-span-7 order-2 lg:order-1">
+                <div 
+                  onClick={() => setActiveModalProject(project)}
+                  className="cursor-pointer overflow-hidden rounded-2xl border border-smotiva-border dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900 aspect-[16/10] relative shadow-xs"
+                >
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    referrerPolicy="no-referrer"
+                    className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.02]"
+                  />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
+                    <span className="opacity-0 group-hover:opacity-100 transition-opacity bg-neutral-900/90 text-white text-xs font-heading font-medium px-4 py-2 rounded-md inline-flex items-center gap-1.5 shadow-lg">
+                      View Case Details <ArrowUpRight size={14} />
+                    </span>
+                  </div>
+                </div>
               </div>
-              <h3 className="text-2xl font-heading font-bold text-neutral-dark mb-4">
-                {work.title}
-              </h3>
-              <p className="text-neutral-gray leading-relaxed mb-6">
-                {work.description}
-              </p>
-              <div className="border-t border-neutral-gray/20 pt-4">
-                <p className="text-sm font-heading font-semibold text-neutral-dark mb-2">
-                  Strategic Reasoning:
+
+              {/* Editorial Text */}
+              <div className="lg:col-span-5 order-1 lg:order-2 space-y-6">
+                <div className="space-y-2">
+                  <div className="flex items-center gap-3">
+                    <span className="text-xs font-mono text-neutral-400">
+                      0{idx + 1}
+                    </span>
+                    <span className="text-xs font-heading font-medium text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">
+                      {project.industry}
+                    </span>
+                  </div>
+                  <h3 
+                    onClick={() => setActiveModalProject(project)}
+                    className="cursor-pointer font-heading text-2xl sm:text-3xl font-bold text-smotiva-charcoal dark:text-white group-hover:text-smotiva-blue transition-colors"
+                  >
+                    {project.title}
+                  </h3>
+                </div>
+
+                <div className="text-xs font-heading font-semibold text-smotiva-coral uppercase tracking-wide">
+                  {project.category}
+                </div>
+
+                <p className="font-body text-sm sm:text-base text-neutral-600 dark:text-neutral-300 leading-relaxed">
+                  {project.summary}
                 </p>
-                <p className="text-sm text-neutral-gray italic mb-4">
-                  {work.reasoning}
-                </p>
-                <p className="text-sm font-heading font-semibold text-accent-teal">
-                  Outcome: {work.outcome}
-                </p>
+
+                {/* Key Deliverable Tags */}
+                <div className="pt-2">
+                  <span className="text-xs font-heading font-semibold uppercase tracking-wider text-neutral-400 block mb-2">
+                    Delivered
+                  </span>
+                  <div className="flex flex-wrap gap-2">
+                    {project.deliverables.slice(0, 3).map((item, i) => (
+                      <span 
+                        key={i}
+                        className="text-xs px-2.5 py-1 rounded-md border border-smotiva-border dark:border-neutral-800 text-smotiva-charcoal dark:text-neutral-300 bg-white dark:bg-neutral-900/50"
+                      >
+                        {item}
+                      </span>
+                    ))}
+                    {project.deliverables.length > 3 && (
+                      <span className="text-xs px-2 py-1 text-neutral-400 font-mono">
+                        +{project.deliverables.length - 3} more
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                <div className="pt-2">
+                  <button
+                    onClick={() => setActiveModalProject(project)}
+                    className="text-xs font-heading font-semibold text-smotiva-blue inline-flex items-center gap-1 hover:underline"
+                  >
+                    Read case study breakdown <ChevronRight size={14} />
+                  </button>
+                </div>
               </div>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
+
+        {/* Case Study Detail Modal */}
+        {activeModalProject && (
+          <div 
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/60 backdrop-blur-sm animate-fadeIn"
+            onClick={() => setActiveModalProject(null)}
+          >
+            <div 
+              className="bg-white dark:bg-neutral-900 rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto border border-neutral-200 dark:border-neutral-800 p-6 sm:p-10 shadow-2xl space-y-8"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Modal Header */}
+              <div className="flex items-start justify-between gap-4 border-b pb-6 border-neutral-200 dark:border-neutral-800">
+                <div className="space-y-1">
+                  <span className="text-xs font-heading uppercase tracking-wider text-smotiva-navy dark:text-smotiva-cyan font-semibold">
+                    {activeModalProject.industry} • {activeModalProject.year}
+                  </span>
+                  <h3 className="font-heading text-2xl sm:text-3xl font-bold text-neutral-900 dark:text-white">
+                    {activeModalProject.title}
+                  </h3>
+                  <p className="text-xs text-neutral-500 dark:text-neutral-400">
+                    {activeModalProject.category}
+                  </p>
+                </div>
+                <button
+                  onClick={() => setActiveModalProject(null)}
+                  className="p-2 rounded-lg border border-neutral-200 dark:border-neutral-800 text-neutral-500 hover:text-neutral-900 dark:hover:text-white"
+                >
+                  <X size={18} />
+                </button>
+              </div>
+
+              {/* Modal Image */}
+              <div className="aspect-[16/9] rounded-xl overflow-hidden border border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-950">
+                <img
+                  src={activeModalProject.image}
+                  alt={activeModalProject.title}
+                  referrerPolicy="no-referrer"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
+              {/* Challenge & Thinking */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-sm">
+                <div className="space-y-2">
+                  <h4 className="font-heading font-bold text-xs uppercase tracking-wider text-neutral-400">
+                    The Commercial Challenge
+                  </h4>
+                  <p className="font-body text-neutral-600 dark:text-neutral-300 leading-relaxed">
+                    {activeModalProject.challenge}
+                  </p>
+                </div>
+                <div className="space-y-2">
+                  <h4 className="font-heading font-bold text-xs uppercase tracking-wider text-neutral-400">
+                    Strategic Thinking
+                  </h4>
+                  <p className="font-body text-neutral-600 dark:text-neutral-300 leading-relaxed">
+                    {activeModalProject.thinking}
+                  </p>
+                </div>
+              </div>
+
+              {/* Deliverables Delivered */}
+              <div className="space-y-3 pt-2 border-t border-neutral-200 dark:border-neutral-800">
+                <h4 className="font-heading font-bold text-xs uppercase tracking-wider text-neutral-400">
+                  Deliverables & Execution
+                </h4>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  {activeModalProject.work.map((item, idx) => (
+                    <div key={idx} className="flex items-start gap-2 text-xs text-neutral-700 dark:text-neutral-300">
+                      <CheckCircle size={14} className="text-smotiva-navy dark:text-smotiva-cyan shrink-0 mt-0.5" />
+                      <span>{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Action Button */}
+              <div className="pt-4 border-t border-neutral-200 dark:border-neutral-800 flex justify-between items-center">
+                <button
+                  onClick={() => {
+                    setActiveModalProject(null);
+                    onStartProject();
+                  }}
+                  className="px-6 py-3 rounded-lg bg-smotiva-navy dark:bg-smotiva-cyan text-white dark:text-smotiva-charcoal font-heading font-semibold text-xs hover:opacity-95 transition-opacity"
+                >
+                  Start a project like this →
+                </button>
+                <button
+                  onClick={() => setActiveModalProject(null)}
+                  className="text-xs text-neutral-500 hover:underline font-body"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );
