@@ -1,7 +1,7 @@
 // src/components/home/ClientFeedback.jsx
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
-import { ArrowUpRight, ArrowLeft, ArrowRight } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Quote } from 'lucide-react';
 
 const testimonials = [
   {
@@ -11,7 +11,7 @@ const testimonials = [
     title: "CEO",
     company: "Innovate Hub",
     metric: "+62%",
-    metricLabel: "brand recall",
+    metricLabel: "brand recall increase",
   },
   {
     id: 2,
@@ -24,12 +24,12 @@ const testimonials = [
   },
   {
     id: 3,
-    quote: "The system they built for us didn't just look polished — it actually communicates what we do. Our clients started understanding us better without us having to explain anything.",
+    quote: "The system they built for us didn't just look polished — it actually communicates what we do. Our enterprise clients started understanding us without us having to explain anything.",
     name: "Chijioke Nnadi",
     title: "CTO",
     company: "Tech Solutions LTD",
     metric: "3×",
-    metricLabel: "inbound quality",
+    metricLabel: "inbound deal quality",
   },
   {
     id: 4,
@@ -38,39 +38,30 @@ const testimonials = [
     title: "Founder",
     company: "Propel Real Estate",
     metric: "100%",
-    metricLabel: "cross-platform consistency",
+    metricLabel: "cross-platform fidelity",
   },
 ];
 
 const slideVariants = {
   enter: (dir) => ({
-    x: dir > 0 ? 60 : -60,
+    x: dir > 0 ? 40 : -40,
     opacity: 0,
   }),
   center: {
     x: 0,
     opacity: 1,
-    transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] },
+    transition: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
   },
   exit: (dir) => ({
-    x: dir > 0 ? -60 : 60,
+    x: dir > 0 ? -40 : 40,
     opacity: 0,
-    transition: { duration: 0.35, ease: [0.76, 0, 0.24, 1] },
-  }),
-};
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
-  visible: (i = 0) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94], delay: i * 0.1 },
+    transition: { duration: 0.3, ease: [0.76, 0, 0.24, 1] },
   }),
 };
 
 export default function ClientFeedback() {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-80px' });
+  const inView = useInView(ref, { once: true, margin: '-60px' });
   const [[active, direction], setActive] = useState([0, 0]);
 
   const paginate = (dir) => {
@@ -80,10 +71,10 @@ export default function ClientFeedback() {
     ]);
   };
 
-  // Auto-advance
+  // Auto-advance every 7 seconds when in view
   useEffect(() => {
     if (!inView) return;
-    const id = setInterval(() => paginate(1), 6000);
+    const id = setInterval(() => paginate(1), 7000);
     return () => clearInterval(id);
   }, [inView, active]);
 
@@ -92,171 +83,149 @@ export default function ClientFeedback() {
   return (
     <section
       ref={ref}
-      className="relative py-24 md:py-32 bg-[#0a0a0a] overflow-hidden"
-      style={{ fontFamily: "'DM Sans', 'Inter', sans-serif" }}
+      className="py-24 sm:py-32 border-b border-smotiva-border dark:border-neutral-800 transition-colors"
     >
-      {/* Subtle background grid */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-[0.025]"
-        style={{
-          backgroundImage: 'linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)',
-          backgroundSize: '80px 80px',
-        }}
-      />
-
-      <div className="relative max-w-[1320px] mx-auto px-6 lg:px-10">
-
-        {/* ── Section header ── */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16 md:mb-20">
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            animate={inView ? 'visible' : 'hidden'}
-            custom={0}
-          >
-            <p className="text-[11px] font-semibold tracking-[0.18em] uppercase text-teal-400 mb-4">
-              Client Results
-            </p>
-            <h2 className="text-[38px] md:text-[50px] font-light leading-[1.06] tracking-[-0.025em] text-white">
-              What structured branding<br />
-              <span className="text-white/30 italic">actually produces.</span>
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+        
+        {/* Section Header */}
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 pb-14 border-b border-smotiva-border dark:border-neutral-800">
+          <div className="space-y-3 max-w-2xl">
+            <div className="inline-flex items-center gap-2 text-xs font-heading font-semibold uppercase tracking-wider text-smotiva-blue">
+              <span className="w-2 h-2 rounded-full bg-smotiva-blue" />
+              <span>05 / Client Proof & Results</span>
+            </div>
+            <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-smotiva-charcoal dark:text-white leading-[1.12]">
+              What structured branding actually produces.
             </h2>
-          </motion.div>
+          </div>
 
-          {/* Navigation controls — top right on desktop */}
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            animate={inView ? 'visible' : 'hidden'}
-            custom={1}
-            className="flex items-center gap-3 md:pb-1"
-          >
+          {/* Navigation Controls */}
+          <div className="flex items-center gap-3">
             <button
               onClick={() => paginate(-1)}
               aria-label="Previous testimonial"
-              className="group w-11 h-11 rounded-sm border border-white/[0.1] flex items-center justify-center text-white/40 hover:text-white hover:border-white/30 transition-all duration-200"
+              className="w-10 h-10 rounded-lg border border-smotiva-border dark:border-neutral-700 flex items-center justify-center text-smotiva-charcoal dark:text-neutral-300 hover:bg-white dark:hover:bg-neutral-800 transition-colors"
             >
-              <ArrowLeft size={16} strokeWidth={1.5} className="group-hover:-translate-x-0.5 transition-transform duration-200" />
+              <ArrowLeft size={16} />
             </button>
             <button
               onClick={() => paginate(1)}
               aria-label="Next testimonial"
-              className="group w-11 h-11 rounded-sm border border-white/[0.1] flex items-center justify-center text-white/40 hover:text-white hover:border-white/30 transition-all duration-200"
+              className="w-10 h-10 rounded-lg border border-smotiva-border dark:border-neutral-700 flex items-center justify-center text-smotiva-charcoal dark:text-neutral-300 hover:bg-white dark:hover:bg-neutral-800 transition-colors"
             >
-              <ArrowRight size={16} strokeWidth={1.5} className="group-hover:translate-x-0.5 transition-transform duration-200" />
+              <ArrowRight size={16} />
             </button>
 
-            {/* Progress dots */}
-            <div className="flex items-center gap-2 ml-2">
+            {/* Pagination Indicators */}
+            <div className="flex items-center gap-1.5 ml-2">
               {testimonials.map((_, i) => (
                 <button
                   key={i}
                   onClick={() => setActive(([prev]) => [i, i > prev ? 1 : -1])}
                   aria-label={`Go to testimonial ${i + 1}`}
-                  className={`rounded-full transition-all duration-300 ${
+                  className={`h-1.5 rounded-full transition-all duration-300 ${
                     i === active
-                      ? 'w-5 h-1.5 bg-teal-400'
-                      : 'w-1.5 h-1.5 bg-white/20 hover:bg-white/40'
+                      ? 'w-6 bg-smotiva-blue'
+                      : 'w-2 bg-neutral-300 dark:bg-neutral-700 hover:bg-neutral-400'
                   }`}
                 />
               ))}
             </div>
-          </motion.div>
+          </div>
         </div>
 
-        {/* ── Main testimonial block ── */}
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          animate={inView ? 'visible' : 'hidden'}
-          custom={2}
-          className="grid md:grid-cols-12 gap-8 md:gap-0"
-        >
-          {/* Left: Quote */}
-          <div className="md:col-span-8 md:pr-16 relative overflow-hidden">
-            {/* Large decorative quote mark */}
-            <span
-              className="absolute -top-4 -left-2 text-[120px] leading-none text-white/[0.04] font-serif select-none pointer-events-none"
-              aria-hidden="true"
-            >
-              "
-            </span>
+        {/* Testimonial Showcase Card */}
+        <div className="pt-12">
+          <div className="p-8 sm:p-12 lg:p-16 rounded-3xl border border-smotiva-border dark:border-neutral-800 bg-white dark:bg-neutral-900/50 shadow-xs">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+              
+              {/* Quote Content */}
+              <div className="lg:col-span-8 space-y-8">
+                <Quote size={32} className="text-smotiva-coral/60" />
 
-            <AnimatePresence custom={direction} mode="wait">
-              <motion.div
-                key={active}
-                custom={direction}
-                variants={slideVariants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-              >
-                {/* Quote text */}
-                <blockquote className="text-[22px] md:text-[28px] font-light leading-[1.45] tracking-[-0.01em] text-white/80 mb-10">
-                  "{current.quote}"
-                </blockquote>
+                <AnimatePresence custom={direction} mode="wait">
+                  <motion.div
+                    key={active}
+                    custom={direction}
+                    variants={slideVariants}
+                    initial="enter"
+                    animate="center"
+                    exit="exit"
+                    className="space-y-6"
+                  >
+                    <blockquote className="font-heading text-xl sm:text-2xl lg:text-3xl font-normal leading-relaxed text-smotiva-charcoal dark:text-white">
+                      "{current.quote}"
+                    </blockquote>
 
-                {/* Author */}
-                <div className="flex items-center gap-5">
-                  {/* Avatar placeholder — initials */}
-                  <div className="w-11 h-11 rounded-sm bg-white/[0.06] border border-white/[0.08] flex items-center justify-center shrink-0">
-                    <span className="text-[13px] font-semibold text-white/50 tracking-wide">
-                      {current.name.split(' ').map(n => n[0]).join('')}
-                    </span>
-                  </div>
-                  <div>
-                    <p className="text-[15px] font-medium text-white leading-tight">{current.name}</p>
-                    <p className="text-[13px] text-white/35 mt-0.5">
-                      {current.title}, {current.company}
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            </AnimatePresence>
+                    <div className="flex items-center gap-4 pt-2">
+                      <div className="w-11 h-11 rounded-lg bg-smotiva-cream dark:bg-neutral-800 border border-smotiva-border dark:border-neutral-700 flex items-center justify-center shrink-0 font-heading font-bold text-sm text-smotiva-blue dark:text-white">
+                        {current.name.split(' ').map((n) => n[0]).join('')}
+                      </div>
+                      <div>
+                        <p className="font-heading font-bold text-base text-smotiva-charcoal dark:text-white leading-tight">
+                          {current.name}
+                        </p>
+                        <p className="font-body text-xs text-neutral-500 dark:text-neutral-400 mt-0.5">
+                          {current.title}, {current.company}
+                        </p>
+                      </div>
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+
+              {/* Metric Column */}
+              <div className="lg:col-span-4 lg:border-l lg:border-smotiva-border lg:dark:border-neutral-800 lg:pl-12 flex flex-col justify-between space-y-8">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={active}
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -12 }}
+                    transition={{ duration: 0.35 }}
+                    className="space-y-6"
+                  >
+                    <div className="p-6 rounded-2xl bg-smotiva-cream dark:bg-neutral-800/60 border border-smotiva-border dark:border-neutral-700">
+                      <span className="text-xs font-heading font-semibold uppercase tracking-wider text-smotiva-coral block mb-1">
+                        Impact Recorded
+                      </span>
+                      <p className="font-heading text-4xl sm:text-5xl font-bold tracking-tight text-smotiva-charcoal dark:text-white">
+                        {current.metric}
+                      </p>
+                      <p className="text-xs font-body text-neutral-600 dark:text-neutral-300 mt-1">
+                        {current.metricLabel}
+                      </p>
+                    </div>
+
+                    {/* Quick index switcher */}
+                    <div className="space-y-2">
+                      <span className="text-[11px] font-heading font-semibold uppercase tracking-wider text-neutral-400 block">
+                        Client Index
+                      </span>
+                      <div className="space-y-1">
+                        {testimonials.map((t, idx) => (
+                          <button
+                            key={t.id}
+                            onClick={() => setActive(([prev]) => [idx, idx > prev ? 1 : -1])}
+                            className={`w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center justify-between ${
+                              idx === active
+                                ? 'bg-smotiva-blue text-white font-semibold'
+                                : 'text-neutral-500 hover:text-smotiva-charcoal dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-neutral-800/40'
+                            }`}
+                          >
+                            <span>{t.name}</span>
+                            <span className="text-[10px] font-mono opacity-75">{t.company}</span>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+
+            </div>
           </div>
-
-          {/* Right: Metric + index — vertical divider on desktop */}
-          <div className="md:col-span-4 md:border-l md:border-white/[0.06] md:pl-16 flex flex-col justify-between gap-8">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={active}
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] } }}
-                exit={{ opacity: 0, y: -16, transition: { duration: 0.25 } }}
-              >
-                {/* Metric stat */}
-                <div className="mb-8">
-                  <p className="text-[52px] md:text-[64px] font-light leading-none tracking-[-0.03em] text-white">
-                    {current.metric}
-                  </p>
-                  <p className="text-[12px] tracking-[0.1em] uppercase text-white/30 mt-2">
-                    {current.metricLabel}
-                  </p>
-                </div>
-
-                {/* Thin separator */}
-                <div className="h-px bg-white/[0.06] mb-8" />
-
-                {/* All clients index — compact list */}
-                <ul className="space-y-3">
-                  {testimonials.map((t, i) => (
-                    <li key={t.id}>
-                      <button
-                        onClick={() => setActive(([prev]) => [i, i > prev ? 1 : -1])}
-                        className={`text-left w-full transition-colors duration-200 ${
-                          i === active ? 'text-white' : 'text-white/25 hover:text-white/50'
-                        }`}
-                      >
-                        <span className="text-[13px] font-medium">{t.name}</span>
-                        <span className="text-[12px] ml-2 text-white/20">{t.company}</span>
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-            </AnimatePresence>
-          </div>
-        </motion.div>
+        </div>
 
       </div>
     </section>

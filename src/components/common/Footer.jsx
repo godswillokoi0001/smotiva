@@ -40,6 +40,11 @@ export default function Footer({ onOpenProjectModal }) {
             </h4>
             <ul className="space-y-2 text-sm font-body">
               <li>
+                <NavLink to="/" className="hover:text-smotiva-blue transition-colors">
+                  Home
+                </NavLink>
+              </li>
+              <li>
                 <NavLink to="/work" className="hover:text-smotiva-blue transition-colors">
                   Work
                 </NavLink>

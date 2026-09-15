@@ -1,6 +1,6 @@
 // src/components/common/Header.jsx
 import React, { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import SmotivaLogo from './SmotivaLogo';
@@ -11,6 +11,7 @@ export default function Header({ onOpenProjectModal }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { isDark } = useTheme();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,11 +22,19 @@ export default function Header({ onOpenProjectModal }) {
   }, []);
 
   const navLinks = [
+    { name: 'Home', path: '/', isHome: true },
     { name: 'Work', path: '/work' },
     { name: 'Services', path: '/services' },
     { name: 'About', path: '/about' },
     { name: 'Contact', path: '/contact' },
   ];
+
+  const isLinkActive = (link) => {
+    if (link.isHome) {
+      return location.pathname === '/' || location.pathname === '/home';
+    }
+    return location.pathname.startsWith(link.path);
+  };
 
   return (
     <>
@@ -45,24 +54,28 @@ export default function Header({ onOpenProjectModal }) {
           <SmotivaLogo variant="auto" symbolSize={26} />
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <NavLink
-                key={link.name}
-                to={link.path}
-                className={({ isActive }) =>
-                  `font-body text-sm font-medium transition-colors relative py-1 ${
-                    isActive
+          <nav className="hidden md:flex items-center gap-7">
+            {navLinks.map((link) => {
+              const active = isLinkActive(link);
+              return (
+                <NavLink
+                  key={link.name}
+                  to={link.path}
+                  className={`font-body text-sm font-medium transition-colors relative py-1 flex items-center gap-1.5 ${
+                    active
                       ? 'text-smotiva-blue font-semibold'
                       : isDark
                         ? 'text-neutral-300 hover:text-white'
                         : 'text-smotiva-charcoal hover:text-smotiva-blue'
-                  }`
-                }
-              >
-                {link.name}
-              </NavLink>
-            ))}
+                  }`}
+                >
+                  <span>{link.name}</span>
+                  {active && (
+                    <span className="w-1.5 h-1.5 rounded-full bg-smotiva-coral shrink-0" />
+                  )}
+                </NavLink>
+              );
+            })}
           </nav>
 
           {/* Desktop Right Actions: Theme Toggle + Primary CTA */}
@@ -110,24 +123,28 @@ export default function Header({ onOpenProjectModal }) {
             }`}
           >
             <nav className="flex flex-col space-y-4">
-              {navLinks.map((link) => (
-                <NavLink
-                  key={link.name}
-                  to={link.path}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={({ isActive }) =>
-                    `font-heading text-lg py-2 border-b transition-colors flex items-center justify-between ${
+              {navLinks.map((link) => {
+                const active = isLinkActive(link);
+                return (
+                  <NavLink
+                    key={link.name}
+                    to={link.path}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`font-heading text-lg py-2 border-b transition-colors flex items-center justify-between ${
                       isDark ? 'border-neutral-800' : 'border-smotiva-border'
                     } ${
-                      isActive 
+                      active 
                         ? 'text-smotiva-blue font-bold' 
                         : isDark ? 'text-neutral-200' : 'text-neutral-800'
-                    }`
-                  }
-                >
-                  <span>{link.name}</span>
-                </NavLink>
-              ))}
+                    }`}
+                  >
+                    <span>{link.name}</span>
+                    {active && (
+                      <span className="w-2 h-2 rounded-full bg-smotiva-coral" />
+                    )}
+                  </NavLink>
+                );
+              })}
 
               <div className="pt-3 flex flex-col gap-3">
                 <button

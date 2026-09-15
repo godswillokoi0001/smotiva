@@ -124,7 +124,7 @@ export default function Projects({ onOpenProjectModal }) {
             {/* Header */}
             <div className="flex items-start justify-between gap-4 border-b pb-6 border-neutral-200 dark:border-neutral-800">
               <div className="space-y-1">
-                <span className="text-xs font-heading uppercase tracking-wider text-smotiva-navy dark:text-smotiva-cyan font-semibold">
+                <span className="text-xs font-heading uppercase tracking-wider text-smotiva-blue font-semibold">
                   {activeModalProject.industry} • {activeModalProject.year}
                 </span>
                 <h3 className="font-heading text-2xl sm:text-3xl font-bold text-neutral-900 dark:text-white">
@@ -180,7 +180,7 @@ export default function Projects({ onOpenProjectModal }) {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {activeModalProject.work.map((item, idx) => (
                   <div key={idx} className="flex items-start gap-2 text-xs text-neutral-700 dark:text-neutral-300">
-                    <CheckCircle size={14} className="text-smotiva-navy dark:text-smotiva-cyan shrink-0 mt-0.5" />
+                    <CheckCircle size={14} className="text-smotiva-blue shrink-0 mt-0.5" />
                     <span>{item}</span>
                   </div>
                 ))}
@@ -194,7 +194,7 @@ export default function Projects({ onOpenProjectModal }) {
                   setActiveModalProject(null);
                   onOpenProjectModal();
                 }}
-                className="px-6 py-3 rounded-lg bg-smotiva-navy dark:bg-smotiva-cyan text-white dark:text-smotiva-charcoal font-heading font-semibold text-xs hover:opacity-95 transition-opacity"
+                className="px-6 py-3 rounded-lg bg-smotiva-blue text-white font-heading font-semibold text-xs hover:opacity-95 transition-opacity"
               >
                 Start a project like this →
               </button>

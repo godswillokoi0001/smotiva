@@ -54,8 +54,9 @@ export default function App() {
             </div>
           }>
             <Routes>
-              {/* Primary 4 Information Architecture Pages */}
+              {/* Primary Pages */}
               <Route path="/" element={<Home onOpenProjectModal={handleOpenProjectModal} />} />
+              <Route path="/home" element={<Home onOpenProjectModal={handleOpenProjectModal} />} />
               <Route path="/work" element={<Projects onOpenProjectModal={handleOpenProjectModal} />} />
               <Route path="/projects" element={<Navigate to="/work" replace />} />
               <Route path="/services" element={<Services onOpenProjectModal={handleOpenProjectModal} />} />

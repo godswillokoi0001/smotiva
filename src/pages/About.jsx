@@ -68,19 +68,19 @@ export default function About({ onOpenProjectModal }) {
               </span>
               <ul className="space-y-2.5 text-xs sm:text-sm font-body text-neutral-700 dark:text-neutral-300">
                 <li className="flex items-start gap-2">
-                  <span className="font-mono text-smotiva-navy dark:text-smotiva-cyan font-bold">01.</span>
+                  <span className="font-mono text-smotiva-blue font-bold">01.</span>
                   <span><strong>Strategy first:</strong> Diagnose commercial bottlenecks before opening design tools.</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="font-mono text-smotiva-cyan font-bold">02.</span>
+                  <span className="font-mono text-smotiva-coral font-bold">02.</span>
                   <span><strong>Disciplined craft:</strong> Restrained typography, negative space, and mathematical systems.</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="font-mono text-smotiva-orange font-bold">03.</span>
+                  <span className="font-mono text-smotiva-gold font-bold">03.</span>
                   <span><strong>Business utility:</strong> Creative execution measured by commercial impact.</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="font-mono text-smotiva-amber font-bold">04.</span>
+                  <span className="font-mono text-smotiva-blue font-bold">04.</span>
                   <span><strong>Long-term partnership:</strong> Ongoing stewardship as your enterprise expands.</span>
                 </li>
               </ul>

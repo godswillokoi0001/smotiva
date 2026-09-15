@@ -1,11 +1,12 @@
 // src/pages/Home.jsx
 import React from 'react';
 import HeroSection from '../components/home/HeroSection';
+import DisciplinesShowcase from '../components/home/DisciplinesShowcase';
 import SelectedWork from '../components/home/SelectedWork';
-import ServicesOverview from '../components/home/ServicesOverview';
-import WhySmotiva from '../components/home/WhySmotiva';
-import ProcessOverview from '../components/home/ProcessOverview';
-import AboutSection from '../components/home/AboutSection';
+import ProblemSection from '../components/home/ProblemSection';
+import ProjectDiagnostic from '../components/home/ProjectDiagnostic';
+import ClientFeedback from '../components/home/ClientFeedback';
+import InsideSmotivaSection from '../components/home/InsideSmotivaSection';
 import CtaSection from '../components/home/CtaSection';
 
 export default function Home({ onOpenProjectModal }) {
@@ -18,32 +19,39 @@ export default function Home({ onOpenProjectModal }) {
 
   return (
     <div className="w-full">
-      {/* 01. Hero */}
+      {/* 01. Editorial Hero with Live Studio Status in Abuja */}
       <HeroSection 
         onStartProject={onOpenProjectModal} 
         onExploreWork={handleScrollToWork} 
       />
 
-      {/* 02. Selected Work */}
+      {/* 02. Core Capabilities & Real Discipline Visual Showcase */}
+      <DisciplinesShowcase 
+        onStartProject={onOpenProjectModal} 
+      />
+
+      {/* 03. Selected Case Archive */}
       <SelectedWork 
         onStartProject={onOpenProjectModal} 
       />
 
-      {/* 03. Services */}
-      <ServicesOverview 
+      {/* 04. The Diagnostic Reality (Fragmented vs Coherent) */}
+      <ProblemSection 
         onStartProject={onOpenProjectModal} 
       />
 
-      {/* 04. Why Smotiva / Positioning */}
-      <WhySmotiva />
+      {/* 05. Interactive Scope & Bottleneck Diagnostic */}
+      <ProjectDiagnostic 
+        onStartProject={onOpenProjectModal} 
+      />
 
-      {/* 05. Process */}
-      <ProcessOverview />
+      {/* 06. Verified Client Results & Commercial Metrics */}
+      <ClientFeedback />
 
-      {/* 06. About */}
-      <AboutSection />
+      {/* 07. Inside Smotiva Studio Philosophy & Principles */}
+      <InsideSmotivaSection />
 
-      {/* 07. Final CTA */}
+      {/* 08. High-Impact Closing CTA */}
       <CtaSection 
         onStartProject={onOpenProjectModal} 
       />

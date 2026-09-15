@@ -1,28 +1,28 @@
 // src/components/home/SelectedWork.jsx
 import React, { useState } from 'react';
-import { ArrowUpRight, CheckCircle, X, ChevronRight } from 'lucide-react';
+import { ArrowUpRight, CheckCircle2, X, ChevronRight, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { caseStudies } from '../../data/brandData';
-import { useTheme } from '../../context/ThemeContext';
 
 export default function SelectedWork({ onStartProject }) {
   const [activeModalProject, setActiveModalProject] = useState(null);
-  const { isDark } = useTheme();
 
   return (
-    <section id="work" className="py-24 sm:py-32 border-b transition-colors border-inherit">
+    <section id="work" className="py-24 sm:py-32 border-b border-smotiva-border dark:border-neutral-800 transition-colors">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+        
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-16 border-b border-smotiva-border dark:border-neutral-800">
-          <div className="space-y-3">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-14 border-b border-smotiva-border dark:border-neutral-800">
+          <div className="space-y-3 max-w-2xl">
             <span className="text-xs font-heading font-semibold uppercase tracking-wider text-smotiva-blue">
-              01 / Selected Work
+              02 / Selected Case Archive
             </span>
-            <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-smotiva-charcoal dark:text-white">
+            <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-smotiva-charcoal dark:text-white leading-[1.12]">
               Work that moves businesses forward.
             </h2>
           </div>
-          <p className="font-body text-sm sm:text-base text-neutral-500 dark:text-neutral-400 max-w-md leading-relaxed">
-            Every project represents a commercial challenge solved with clear thinking, disciplined design, and robust technology.
+          <p className="font-body text-sm sm:text-base text-neutral-600 dark:text-neutral-300 max-w-md leading-relaxed">
+            Every project represents a commercial challenge solved with strategic clarity, disciplined typography, and high-performance engineering.
           </p>
         </div>
 
@@ -61,7 +61,7 @@ export default function SelectedWork({ onStartProject }) {
                       0{idx + 1}
                     </span>
                     <span className="text-xs font-heading font-medium text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">
-                      {project.industry}
+                      {project.industry} • {project.year}
                     </span>
                   </div>
                   <h3 
@@ -115,6 +115,20 @@ export default function SelectedWork({ onStartProject }) {
           ))}
         </div>
 
+        {/* Bottom Archive Link */}
+        <div className="mt-12 pt-8 border-t border-smotiva-border dark:border-neutral-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-xs sm:text-sm font-body text-neutral-500 dark:text-neutral-400">
+            Have a commercial challenge similar to these? We diagnose before quoting.
+          </p>
+          <Link
+            to="/work"
+            className="text-xs font-heading font-semibold text-smotiva-blue hover:underline inline-flex items-center gap-1.5"
+          >
+            <span>Explore all case archives</span>
+            <ArrowRight size={14} />
+          </Link>
+        </div>
+
         {/* Case Study Detail Modal */}
         {activeModalProject && (
           <div 
@@ -122,16 +136,16 @@ export default function SelectedWork({ onStartProject }) {
             onClick={() => setActiveModalProject(null)}
           >
             <div 
-              className="bg-white dark:bg-neutral-900 rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto border border-neutral-200 dark:border-neutral-800 p-6 sm:p-10 shadow-2xl space-y-8"
+              className="bg-white dark:bg-neutral-900 rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto border border-smotiva-border dark:border-neutral-800 p-6 sm:p-10 shadow-2xl space-y-8"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Modal Header */}
-              <div className="flex items-start justify-between gap-4 border-b pb-6 border-neutral-200 dark:border-neutral-800">
+              <div className="flex items-start justify-between gap-4 border-b pb-6 border-smotiva-border dark:border-neutral-800">
                 <div className="space-y-1">
-                  <span className="text-xs font-heading uppercase tracking-wider text-smotiva-navy dark:text-smotiva-cyan font-semibold">
+                  <span className="text-xs font-heading uppercase tracking-wider text-smotiva-blue font-semibold">
                     {activeModalProject.industry} • {activeModalProject.year}
                   </span>
-                  <h3 className="font-heading text-2xl sm:text-3xl font-bold text-neutral-900 dark:text-white">
+                  <h3 className="font-heading text-2xl sm:text-3xl font-bold text-smotiva-charcoal dark:text-white">
                     {activeModalProject.title}
                   </h3>
                   <p className="text-xs text-neutral-500 dark:text-neutral-400">
@@ -140,14 +154,14 @@ export default function SelectedWork({ onStartProject }) {
                 </div>
                 <button
                   onClick={() => setActiveModalProject(null)}
-                  className="p-2 rounded-lg border border-neutral-200 dark:border-neutral-800 text-neutral-500 hover:text-neutral-900 dark:hover:text-white"
+                  className="p-2 rounded-lg border border-smotiva-border dark:border-neutral-800 text-neutral-500 hover:text-neutral-900 dark:hover:text-white transition-colors"
                 >
                   <X size={18} />
                 </button>
               </div>
 
               {/* Modal Image */}
-              <div className="aspect-[16/9] rounded-xl overflow-hidden border border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-950">
+              <div className="aspect-[16/9] rounded-2xl overflow-hidden border border-smotiva-border dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-950">
                 <img
                   src={activeModalProject.image}
                   alt={activeModalProject.title}
@@ -177,14 +191,14 @@ export default function SelectedWork({ onStartProject }) {
               </div>
 
               {/* Deliverables Delivered */}
-              <div className="space-y-3 pt-2 border-t border-neutral-200 dark:border-neutral-800">
+              <div className="space-y-3 pt-2 border-t border-smotiva-border dark:border-neutral-800">
                 <h4 className="font-heading font-bold text-xs uppercase tracking-wider text-neutral-400">
                   Deliverables & Execution
                 </h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   {activeModalProject.work.map((item, idx) => (
                     <div key={idx} className="flex items-start gap-2 text-xs text-neutral-700 dark:text-neutral-300">
-                      <CheckCircle size={14} className="text-smotiva-navy dark:text-smotiva-cyan shrink-0 mt-0.5" />
+                      <CheckCircle2 size={14} className="text-smotiva-blue shrink-0 mt-0.5" />
                       <span>{item}</span>
                     </div>
                   ))}
@@ -192,13 +206,13 @@ export default function SelectedWork({ onStartProject }) {
               </div>
 
               {/* Action Button */}
-              <div className="pt-4 border-t border-neutral-200 dark:border-neutral-800 flex justify-between items-center">
+              <div className="pt-4 border-t border-smotiva-border dark:border-neutral-800 flex justify-between items-center">
                 <button
                   onClick={() => {
                     setActiveModalProject(null);
                     onStartProject();
                   }}
-                  className="px-6 py-3 rounded-lg bg-smotiva-navy dark:bg-smotiva-cyan text-white dark:text-smotiva-charcoal font-heading font-semibold text-xs hover:opacity-95 transition-opacity"
+                  className="px-6 py-3 rounded-lg bg-smotiva-blue text-white font-heading font-semibold text-xs hover:opacity-95 transition-opacity"
                 >
                   Start a project like this →
                 </button>

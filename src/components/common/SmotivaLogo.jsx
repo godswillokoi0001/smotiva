@@ -14,63 +14,16 @@ export function SmotivaSymbol({
   className = '',
   variant = 'coral' // 'coral', 'blue', 'cream', 'white', 'charcoal'
 }) {
-  // Determine fill color from variant if not explicitly passed
-  let resolvedColor = color;
-  if (!resolvedColor) {
-    switch (variant) {
-      case 'blue':
-        resolvedColor = '#0052FF';
-        break;
-      case 'cream':
-        resolvedColor = '#FAF7F0';
-        break;
-      case 'white':
-        resolvedColor = '#FFFFFF';
-        break;
-      case 'charcoal':
-        resolvedColor = '#141416';
-        break;
-      case 'gold':
-        resolvedColor = '#E5A100';
-        break;
-      case 'coral':
-      default:
-        resolvedColor = '#F04C4C';
-        break;
-    }
-  }
-
   return (
-    <svg 
-      width={size} 
-      height={Math.round((size * 42) / 52)} 
-      viewBox="0 0 52 42" 
-      fill="none" 
-      xmlns="http://www.w3.org/2000/svg"
-      className={`shrink-0 transition-transform duration-200 ${className}`}
+    <img
+      src="/images/Smotiva%20Icon%20II.png"
+      alt=""
+      width={size}
+      height={size}
+      className={`shrink-0 object-contain transition-transform duration-200 ${className}`}
+      style={{ width: size, height: size }}
       aria-hidden="true"
-    >
-      {/* Piece 1: Left Wing with circular arc notch */}
-      <path 
-        d="M5 8.5C5 7.4 6 6.8 7 7.3L19.8 13.2C20.8 13.7 21 14.8 20.4 15.6C19 17.4 18.2 19.6 18.2 21C18.2 22.4 19 24.6 20.4 26.4C21 27.2 20.8 28.3 19.8 28.8L7 34.7C6 35.2 5 34.6 5 33.5V8.5Z" 
-        fill={resolvedColor} 
-      />
-      {/* Piece 2: Top-right upward angled triangle */}
-      <path 
-        d="M25.8 5.6C26.7 4.9 28 5.3 28.5 6.3L39.8 14.1C40.6 14.7 40.4 16 39.5 16.3L26.6 18C25.6 18.1 24.8 17.3 25 16.3L25.8 5.6Z" 
-        fill={resolvedColor} 
-      />
-      {/* Piece 3: Bottom-right downward angled triangle */}
-      <path 
-        d="M26.6 24L39.5 25.7C40.4 26 40.6 27.3 39.8 27.9L28.5 35.7C28 36.7 26.7 37.1 25.8 36.4L25 25.7C24.8 24.7 25.6 23.9 26.6 24Z" 
-        fill={resolvedColor} 
-      />
-      {/* Piece 4: Far-right lead triangle */}
-      <path 
-        d="M35.5 17.4C35.5 16.6 36.4 16.1 37.1 16.5L45.4 20.4C46.1 20.8 46.1 21.8 45.4 22.2L37.1 26.1C36.4 26.5 35.5 26 35.5 25.2V17.4Z" 
-        fill={resolvedColor} 
-      />
-    </svg>
+    />
   );
 }
 
@@ -130,7 +83,12 @@ export function SmotivaAppIcon({
       className={`relative inline-flex items-center justify-center rounded-2xl shadow-md ${bgClasses[variant] || bgClasses.coral} ${className}`}
       style={{ width: size, height: size }}
     >
-      <SmotivaSymbol size={Math.round(size * 0.58)} color="#FAF7F0" />
+      <img
+        src="/images/Smotiva%20Icon%20I.png"
+        alt=""
+        className="object-contain"
+        style={{ width: Math.round(size * 0.62), height: Math.round(size * 0.62) }}
+      />
       {showBadge && (
         <span className="absolute -top-1 -right-1 px-1.5 py-0.5 min-w-[18px] text-[10px] font-mono font-bold bg-[#E63946] text-white rounded-full flex items-center justify-center ring-2 ring-white dark:ring-neutral-900 leading-none">
           {badgeText}
@@ -188,6 +146,14 @@ export default function SmotivaLogo({
     }
   }
 
+  const logoImage = (
+    <img
+      src={isThemeDark ? "/LOGO%20WHITE%20PNG.png" : "/images/Smotiva%20Logo%20PNG.png"}
+      alt="Smotiva"
+      className="h-6 w-auto object-contain sm:h-7"
+    />
+  );
+
   // Symbol only
   if (layout === 'symbol-only') {
     return (
@@ -215,41 +181,25 @@ export default function SmotivaLogo({
         className={`inline-flex items-center gap-3 group focus:outline-none ${className}`}
         aria-label="Smotiva - Digital Growth Partner"
       >
-        <div className="transition-transform duration-200 group-hover:scale-105">
-          <SmotivaSymbol size={symbolSize} color={symbolColor} />
-        </div>
-        <div className="flex flex-col">
-          <SmotivaWordmark color={wordmarkColor} sizeClass={sizeClass} />
-          {showTagline && (
-            <span className="text-[10px] font-heading font-semibold tracking-wider uppercase text-neutral-500 mt-0.5">
-              Digital Growth Partner
-            </span>
-          )}
-        </div>
-      </NavLink>
-    );
-  }
-
-  // Default: Presentation-7 lockup ("Smotiva" wordmark followed by Symbol on the right)
-  return (
-    <NavLink 
-      to="/" 
-      onClick={onClick}
-      className={`inline-flex items-center gap-2.5 sm:gap-3 group focus:outline-none ${className}`}
-      aria-label="Smotiva - Digital Growth Partner"
-    >
-      <div className="flex flex-col">
-        <SmotivaWordmark color={wordmarkColor} sizeClass={sizeClass} />
+        {logoImage}
         {showTagline && (
           <span className="text-[10px] font-heading font-semibold tracking-wider uppercase text-neutral-500 mt-0.5">
             Digital Growth Partner
           </span>
         )}
-      </div>
+      </NavLink>
+    );
+  }
 
-      <div className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:scale-105">
-        <SmotivaSymbol size={symbolSize} color={symbolColor} />
-      </div>
+  // Default: use the provided brand PNG logo across the site header/footer.
+  return (
+    <NavLink 
+      to="/" 
+      onClick={onClick}
+      className={`inline-flex items-center group focus:outline-none ${className}`}
+      aria-label="Smotiva - Digital Growth Partner"
+    >
+      {logoImage}
     </NavLink>
   );
 }
