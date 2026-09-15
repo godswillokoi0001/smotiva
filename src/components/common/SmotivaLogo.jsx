@@ -148,7 +148,7 @@ export default function SmotivaLogo({
 
   const logoImage = (
     <img
-      src={isThemeDark ? "/LOGO%20WHITE%20PNG.png" : "/images/Smotiva%20Logo%20PNG.png"}
+      src="/images/Smotiva%20Logo%20PNG.png"
       alt="Smotiva"
       className="h-6 w-auto object-contain sm:h-7"
     />
