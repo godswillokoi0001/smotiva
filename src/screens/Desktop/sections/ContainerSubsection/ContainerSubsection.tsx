@@ -1,0 +1,171 @@
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "../../../../components/ui/accordion";
+
+const leftQuestions = [
+  {
+    id: "what-does-smotiva-do",
+    question: "What does Smotiva Digital Ltd do?",
+    answer:
+      "We're a digital agency helping businesses strengthen their brands and online presence through brand strategy, identity design, websites, content creation and digital marketing. Our goal is to help businesses reach more customers and make it easier for those customers to connect with them.",
+  },
+  {
+    id: "need-all-services",
+    question: "Do I need all your services to work with you?",
+    answer:
+      "No. Most clients start with the part that needs attention most, whether that's a logo, a website or help with their content. We'll only recommend what your business actually needs, and you can always add more later as things grow.",
+  },
+  {
+    id: "existing-logo-website",
+    question: "Can you help if I already have a logo or website?",
+    answer:
+      "Yes. If you already have a logo, website or other brand materials, we'll look at what's working and what isn't, then improve and build on it instead of starting over. Good work doesn't need to be thrown away to make progress.",
+  },
+  {
+    id: "design-build-websites",
+    question: "Do you design and build websites?",
+    answer:
+      "Yes. We handle both the design and the build, so your website is planned, designed and developed by the same team. That means it looks the way it should, works properly on every device and clearly explains what you do.",
+  },
+];
+
+const rightQuestions = [
+  {
+    id: "who-work-with",
+    question: "Who do you work with?",
+    answer:
+      "We work with small and growing businesses that have something valuable to offer but aren't being understood clearly online. Whether you're well established or just getting started, if clarity and direction would help you reach more customers, we can help.",
+  },
+  {
+    id: "service-cost",
+    question: "How much do your services cost?",
+    answer:
+      "Every project is different, so we quote based on what your business actually needs rather than charging a fixed package price. After a short conversation about your goals, we'll give you a clear scope and price before any work begins, so there are no surprises.",
+  },
+  {
+    id: "get-started",
+    question: "How do we get started?",
+    answer:
+      "Start by telling us about your business and what you're working toward. We'll talk things through, understand where you are and recommend a clear next step, with no pressure and no jargon.",
+  },
+];
+
+const Divider = () => (
+  <img
+    className="block h-px w-full"
+    src="/line.svg"
+    alt=""
+    aria-hidden="true"
+  />
+);
+
+const QuestionItem = ({
+  id,
+  question,
+  answer,
+}: {
+  id: string;
+  question: string;
+  answer?: string;
+}) => (
+  <AccordionItem value={id} className="border-0">
+    <AccordionTrigger className="gap-4 px-5 py-6 text-left hover:no-underline sm:gap-[26px] sm:px-[30px] sm:py-[30px] [&>svg]:hidden [&[data-state=open]_.faq-minus]:block [&[data-state=open]_.faq-plus]:hidden">
+      <span className="[font-family:'Lufga-SemiBold',Helvetica] text-lg font-semibold leading-[27px] text-[#061026]">
+        {question}
+      </span>
+      <span className="relative block h-11 w-11 shrink-0">
+        <svg
+          className="faq-plus block h-11 w-11"
+          viewBox="0 0 44 44"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          <rect width="44" height="44" rx="22" fill="#061026" />
+          <path
+            d="M29 21H23V15C23 14.735 22.8946 14.48 22.7071 14.293C22.5196 14.105 22.2652 14 22 14C21.7348 14 21.4804 14.105 21.2929 14.293C21.1054 14.48 21 14.735 21 15V21H15C14.7348 21 14.4804 21.105 14.2929 21.293C14.1054 21.48 14 21.735 14 22C14 22.265 14.1054 22.52 14.2929 22.707C14.4804 22.895 14.7348 23 15 23H21V29C21 29.265 21.1054 29.52 21.2929 29.707C21.4804 29.895 21.7348 30 22 30C22.2652 30 22.5196 29.895 22.7071 29.707C22.8946 29.52 23 29.265 23 29V23H29C29.2652 23 29.5196 22.895 29.7071 22.707C29.8946 22.52 30 22.265 30 22C30 21.735 29.8946 21.48 29.7071 21.293C29.5196 21.105 29.2652 21 29 21Z"
+            fill="#FFFDF0"
+          />
+        </svg>
+        <svg
+          className="faq-minus absolute inset-0 hidden h-11 w-11"
+          viewBox="0 0 44 44"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          <rect width="44" height="44" rx="22" fill="#061026" />
+          <path
+            d="M29 21H15C14.7348 21 14.4804 21.1054 14.2929 21.2929C14.1054 21.4804 14 21.7348 14 22C14 22.2652 14.1054 22.5196 14.2929 22.7071C14.4804 22.8946 14.7348 23 15 23H29C29.2652 23 29.5196 22.8946 29.7071 22.7071C29.8946 22.5196 30 22.2652 30 22C30 21.7348 29.8946 21.4804 29.7071 21.2929C29.5196 21.1054 29.2652 21 29 21Z"
+            fill="#FFFDF0"
+          />
+        </svg>
+      </span>
+    </AccordionTrigger>
+    {answer && (
+      <AccordionContent className="px-5 pb-6 pt-0 sm:px-[30px] sm:pb-[30px]">
+        <p className="[font-family:'General_Sans-Regular',Helvetica] text-base font-normal leading-6 text-blue-ribbon-primary">
+          {answer}
+        </p>
+      </AccordionContent>
+    )}
+  </AccordionItem>
+);
+
+export const ContainerSubsection = (): JSX.Element => {
+  return (
+    <section className="flex w-full flex-col items-center justify-center gap-10 bg-[#fffdf0] px-6 py-16 sm:px-10 lg:p-20">
+      <header className="flex w-full flex-col items-center gap-10">
+        <div className="flex w-full flex-col items-start gap-3.5 px-0 xl:px-[150px]">
+          <h1 className="mt-[-1px] w-full text-center [font-family:'Lufga-SemiBold',Helvetica] text-[28px] font-semibold leading-[40px] tracking-[0] text-[#061026] sm:text-[34px] sm:leading-[48px] lg:text-[38px] lg:leading-[57px]">
+            Frequently Asked Questions
+          </h1>
+          <p className="w-full text-center [font-family:'General_Sans-Regular',Helvetica] text-base font-normal leading-7 tracking-[0] text-[#061026] sm:text-lg sm:leading-[27px]">
+            Got questions? We&apos;ve got answers. Check out our frequently
+            asked questions section to find valuable insights into our
+            processes, pricing, and more. Transparency is at the core of our
+            client interactions.
+          </p>
+        </div>
+      </header>
+      <div className="flex w-full flex-col items-stretch justify-center gap-8 xl:flex-row xl:items-start xl:gap-[94px]">
+        <div className="flex min-w-0 flex-1 flex-col">
+          <Accordion
+            type="single"
+            collapsible
+            defaultValue="what-does-smotiva-do"
+            className="w-full"
+          >
+            {leftQuestions.map((item, index) => (
+              <div key={item.id}>
+                <QuestionItem
+                  id={item.id}
+                  question={item.question}
+                  answer={item.answer}
+                />
+                {index < leftQuestions.length - 1 && <Divider />}
+              </div>
+            ))}
+          </Accordion>
+        </div>
+        <div className="flex min-w-0 flex-1 flex-col">
+          <Accordion type="single" collapsible className="w-full">
+            {rightQuestions.map((item, index) => (
+              <div key={item.id}>
+                <QuestionItem
+                  id={item.id}
+                  question={item.question}
+                  answer={item.answer}
+                />
+                {index < rightQuestions.length - 1 && <Divider />}
+              </div>
+            ))}
+          </Accordion>
+        </div>
+      </div>
+    </section>
+  );
+};

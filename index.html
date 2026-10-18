@@ -1,36 +1,18 @@
-<!doctype html>
+
+            <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Smotiva — Digital Growth Partner</title>
-    <meta name="description" content="Smotiva Digital Ltd is a digital growth partner that helps businesses build and improve their digital presence through strategy, brand identity, digital products, and visual communication." />
-    <meta property="og:title" content="Smotiva — Digital Growth Partner" />
-    <meta property="og:description" content="Smotiva Digital Ltd is a digital growth partner that helps businesses build and improve their digital presence through strategy, brand identity, digital products, and visual communication." />
-    <meta property="og:image" content="/images/Smotiva%20Logo%20PNG.png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <link rel="preconnect" href="https://api.fontshare.com">
-    <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/png" sizes="32x32" href="/images/Smotiva%20Logo%20PNG.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/images/Smotiva%20Icon%20I.png">
-    <link rel="icon" type="image/png" sizes="48x48" href="/images/Smotiva%20Icon%20II.png">
-    <script>
-      (function() {
-        try {
-          const stored = localStorage.getItem('smotiva_theme');
-          const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-          if (stored === 'dark' || (!stored && prefersDark)) {
-            document.documentElement.classList.add('dark');
-          } else {
-            document.documentElement.classList.remove('dark');
-          }
-        } catch (e) {}
-      })();
-    </script>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+<meta charset="utf-8" />
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Smotiva | Branding, Web Design &amp; Digital Marketing Agency</title>
+<link rel="icon" type="image/png" href="/images/smotiva_app_icon_blue_transparent_red.png" />
+<link href="tailwind.css" rel="stylesheet" />
+  <meta property="og:image" content="https://bolt.new/static/og_default.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://bolt.new/static/og_default.png">
+</head>
+<body>
+<div id="app"></div>
+<script type="module" src="./src/index.tsx"></script>
+</body>
 </html>

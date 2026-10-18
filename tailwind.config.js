@@ -1,78 +1,85 @@
-// tailwind.config.js
-export default {
-  darkMode: 'class',
+module.exports = {
   content: [
-    './index.html',
-    './src/**/*.{js,jsx,ts,tsx}',
+    "./src/**/*.{html,js,ts,jsx,tsx}",
+    "app/**/*.{ts,tsx}",
+    "components/**/*.{ts,tsx}",
   ],
+  corePlugins: { preflight: true },
   theme: {
     extend: {
       colors: {
-        // Direct brand color tokens from attached Smotiva identity presentation
-        'smotiva-blue': '#0052FF',       // Primary Brand Cobalt Electric Blue
-        'smotiva-coral': '#F04C4C',      // Primary Brand Coral / Poppy Red
-        'smotiva-cream': '#FAF7F0',      // Signature Warm Cream / Off-White Canvas
-        'smotiva-charcoal': '#141416',   // Deep Charcoal Black
-        'smotiva-gold': '#E5A100',       // Secondary Ochre / Amber Gold
-        'smotiva-border': '#E8E4DA',     // Refined Border on Cream
-        'smotiva-white': '#FFFFFF',      // Pure White
-        'smotiva-nearwhite': '#FAF7F0',  // Near-white is now the signature warm cream
-
-        // Compatibility aliases mapped directly to brand palette
-        'smotiva-navy': '#0052FF',       // Maps to Electric Blue #0052FF
-        'smotiva-cyan': '#0052FF',       // Maps to Electric Blue #0052FF
-        'smotiva-orange': '#F04C4C',     // Maps to Coral Red #F04C4C
-        'smotiva-amber': '#E5A100',      // Maps to Ochre Gold #E5A100
-
-        // Structured object for smotiva.* classes
-        smotiva: {
-          // Primary colors from presentation
-          blue: '#0052FF',
-          coral: '#F04C4C',
-          cream: '#FAF7F0',
-          charcoal: '#141416',
-          gold: '#E5A100',
-          border: '#E8E4DA',
-          white: '#FFFFFF',
-          nearwhite: '#FAF7F0',
-
-          // Compatibility aliases
-          navy: '#0052FF',
-          cyan: '#0052FF',
-          orange: '#F04C4C',
-          amber: '#E5A100',
-          
-          canvas: '#FAF7F0',     // Signature Warm Cream Canvas
-          canvasAlt: '#F4F0E6',  // Secondary Surface Warm Tone
-          surface: '#FFFFFF',    // Crisp White Card Surface
-          darkCanvas: '#141416', // Deep Charcoal Dark Canvas
-          darkSurface: '#1F1F23',// Elevated Dark Surface
-          darkBorder: '#27272A', // Dark Border
+        "blue-ribbon-primary": "var(--blue-ribbon-primary)",
+        colorbasewhite: "var(--colorbasewhite)",
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
+        },
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
+        },
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
+        },
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
+        },
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
+        },
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
+        },
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
         },
       },
       fontFamily: {
-        heading: ['Lufga', 'system-ui', 'sans-serif'],
-        display: ['Lufga', 'system-ui', 'sans-serif'],
-        body: ['General Sans', 'system-ui', '-apple-system', 'sans-serif'],
-        sans: ['General Sans', 'system-ui', '-apple-system', 'sans-serif'],
+        h2: "var(--h2-font-family)",
+        h5: "var(--h5-font-family)",
+        sans: [
+          "ui-sans-serif",
+          "system-ui",
+          "sans-serif",
+          '"Apple Color Emoji"',
+          '"Segoe UI Emoji"',
+          '"Segoe UI Symbol"',
+          '"Noto Color Emoji"',
+        ],
       },
-      letterSpacing: {
-        tightest: '-0.04em',
-        tighter: '-0.025em',
-        tight: '-0.015em',
-        wide: '0.05em',
-        widest: '0.12em',
-      },
+      boxShadow: { "effect-shadow-small": "var(--effect-shadow-small)" },
       borderRadius: {
-        'sm': '4px',
-        'DEFAULT': '6px',
-        'md': '8px',
-        'lg': '12px',
-        'xl': '16px',
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
+      },
+      keyframes: {
+        "accordion-down": {
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
+      },
+      animation: {
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
       },
     },
-  },    
-  plugins: [],  
-}
-
-
+    container: { center: true, padding: "2rem", screens: { "2xl": "1400px" } },
+  },
+  plugins: [],
+  darkMode: ["class"],
+};
