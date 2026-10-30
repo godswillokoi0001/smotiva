@@ -337,9 +337,17 @@
   body {
     @apply bg-background text-foreground;
     background-color: #fffdf0;
+    color: #061026;
+    font-family: "General Sans", "Lufga", Helvetica, Arial, sans-serif;
     overflow-x: clip;
+    -webkit-font-smoothing: antialiased;
     font-feature-settings:
       "rlig" 1,
       "calt" 1;
+  }
+
+  ::selection {
+    background-color: #0053fa;
+    color: #fffdf0;
   }
 }

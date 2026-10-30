@@ -1,9 +1,12 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { Desktop } from "./screens/Desktop/Desktop";
+import { RouterProvider } from "./lib/router";
+import { Router } from "./pages/Router";
 
 createRoot(document.getElementById("app") as HTMLElement).render(
   <StrictMode>
-    <Desktop />
+    <RouterProvider>
+      <Router />
+    </RouterProvider>
   </StrictMode>,
 );

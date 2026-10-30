@@ -8,6 +8,14 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        cream: "#fffdf0",
+        ink: "#061026",
+        brand: "#0053fa",
+        sky: "#dbe7ff",
+        coral: "#ff5757",
+        blush: "#ffb2b2",
+        "blush-deep": "#ff7676",
+        gold: "#e6ad00",
         "blue-ribbon-primary": "var(--blue-ribbon-primary)",
         colorbasewhite: "var(--colorbasewhite)",
         border: "hsl(var(--border))",
@@ -45,6 +53,14 @@ module.exports = {
         },
       },
       fontFamily: {
+        lufga: ["Lufga", "General Sans", "Helvetica", "Arial", "sans-serif"],
+        general: [
+          "General Sans",
+          "Lufga",
+          "Helvetica",
+          "Arial",
+          "sans-serif",
+        ],
         h2: "var(--h2-font-family)",
         h5: "var(--h5-font-family)",
         sans: [
